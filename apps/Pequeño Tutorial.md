@@ -5,14 +5,14 @@
 npx create-nx-workspace@latest
 ```
 
-## 👀 Genera una Nueva "Vista" en un Frontend ya Hecho
+## 👀 Genera un Nuevo Proyecto (Frontend)
 ```sh
-nx g @nx/angular:application "Nombre de la vista"
+npx nx g @nx/angular:application "Nombre del frontend"
 ```
 
-## 🚀 Genera un Nuevo Proyecto (Backend o Frontend)
+## 🚀 Genera un Nuevo Proyecto (Backend)
 ```sh
-npx nx generate @nxlv/python:poetry-project "Nombre del proyecto | back - front" \
+npx nx generate @nxlv/python:poetry-project "Nombre del proyecto | backend" \
 --projectType application \
 --description='My Project 1' \  # ACA VA UNA BREVE DESCRIPCIÓN DEL PROYECTO
 --packageName="src o backend" \
@@ -26,6 +26,11 @@ npx nx generate @nxlv/python:poetry-project "Nombre de la libreria" \
 --description='My Library 1' \  # ACA VA UNA BREVE DESCRIPCIÓN DE LA LIBRERIA
 --packageName="src o backend" \
 --moduleName="src o backend"
+```
+
+## 📚 Genera una nueva vista en un Frontend
+```sh
+npx nx generate @nrwl/angular:component "nombre de la vista" --project="nombre del frontend" --module=app.module.ts --style=scss 
 ```
 
 ## 🏃‍♂️ Cómo Correr los Servidores
