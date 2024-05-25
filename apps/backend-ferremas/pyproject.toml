@@ -25,6 +25,8 @@ readme = 'README.md'
   fastapi = "^0.111.0"
   pydantic-settings = "^2.2.1"
   sqlmodel = "^0.0.18"
+  requests = "^2.32.2"
+  numpy = "^1.26.4"
 
   [tool.poetry.group.dev.dependencies]
   autopep8 = "2.0.2"
