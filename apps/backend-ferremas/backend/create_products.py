@@ -2,11 +2,10 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 import random
 
-from backend.database.models import (
-    Categoria, Producto, PrecioProducto)
+from backend.database.models import Producto
 
 
-def crear_categorias_y_productos(db: Session):
+def crear_categorias_y_productos(session: Session):
     categorias = {
         'Herramientas': {
             'Herramientas Manuales': ['Martillos', 'Destornilladores', 'Llaves'],
@@ -25,34 +24,54 @@ def crear_categorias_y_productos(db: Session):
     for categoria_principal, subcategorias in categorias.items():
         if isinstance(subcategorias, dict):
             for subcategoria, productos in subcategorias.items():
-                cat_obj = Categoria(name=subcategoria)
-                db.add(cat_obj)
-                db.commit()
-                crear_productos(db, cat_obj, productos, marcas)
+                crear_productos(session, subcategoria, productos, marcas)
         else:
-            cat_obj = Categoria(name=categoria_principal)
-            db.add(cat_obj)
-            db.commit()
-            crear_productos(db, cat_obj, subcategorias, marcas)
+            crear_productos(session, categoria_principal, subcategorias, marcas)
 
 
-def crear_productos(db: Session, categoria, productos, marcas):
+def crear_productos(session: Session, categoria, productos, marcas):
     for producto in productos:
-        for _ in range(3):
-            codigo_producto = f'{producto[:3].upper()}-{random.randint(100, 999)}'
-            prod_obj = Producto(
-                codigo_producto=codigo_producto,
-                marca=random.choice(marcas),
-                codigo=f'{producto[:3].upper()}-{random.randint(1000, 9999)}',
-                name=producto,
-                cat=categoria,
-                stock=random.randint(1, 100)
-            )
-            db.add(prod_obj)
-            db.commit()
-            precio_prod = PrecioProducto(
-                producto=prod_obj,
-                valor=random.randint(1, 100)
-            )
-            db.add(precio_prod)
-            db.commit()
+        codigo_producto = f'{producto[:3].upper()}-{random.randint(100, 999)}'
+        now = datetime.now()
+        precios = [
+            {
+                "fecha": now.isoformat(),
+                "valor": random.randint(1, 100)
+            }
+        ]
+        prod_obj = Producto(
+            id=codigo_producto,
+            marca=random.choice(marcas),
+            name=producto,
+            categoria=categoria,
+            stock=random.randint(1, 100),
+            imagen=None,
+            enabled=True,
+            created_date=now,
+            modified_date=now,
+            deleted_date=None,
+            precios=precios
+        )
+        session.add(prod_obj)
+    session.commit()
+
+
+def get_or_create(session: Session, model, **kwargs):
+    instance = session.query(model).filter_by(**kwargs).first()
+    if instance:
+        return instance
+    else:
+        # Asegurarse de que todos los campos NOT NULL tengan un valor predeterminado
+        now = datetime.now()
+        defaults = {
+            'enabled': True,
+            'created_date': now,
+            'modified_date': now,
+            'deleted_date': None  # Asumiendo que puede ser NULL
+        }
+        # Actualizar los valores predeterminados con cualquier valor proporcionado en kwargs
+        defaults.update(kwargs)
+        instance = model(**defaults)
+        session.add(instance)
+        session.commit()
+        return instance
