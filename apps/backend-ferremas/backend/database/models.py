@@ -1,6 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import LargeBinary, Column, Integer, String, DateTime, ForeignKey, Boolean, JSON
-import json
+from sqlalchemy import LargeBinary, Column, Integer, String, DateTime, Boolean, JSON
 from datetime import datetime
 
 
@@ -19,7 +18,7 @@ class Categoria(Base, BaseModel):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(150), unique=True)
-    desc = Column(String(500))
+    desc = Column(String(500), nullable=True)
 
 
 class Producto(Base, BaseModel):
@@ -30,8 +29,9 @@ class Producto(Base, BaseModel):
     name = Column(String(150))
     categoria = Column(String)
     stock = Column(Integer, default=0)
-    imagen = Column(LargeBinary)
-    precios = Column(JSON)  # Campo JSON para almacenar precios
+    imagen = Column(LargeBinary, nullable=True)
+    precios = Column(JSON, nullable=False)  # Campo JSON para almacenar precios
+
 
     def add_precio(self, valor, fecha=None):
         if fecha is None:
@@ -40,6 +40,7 @@ class Producto(Base, BaseModel):
             self.precios = []
         self.precios.append({'valor': valor, 'fecha': fecha})
         # No convertir a JSON aquí, manejar como lista de Python
+
 
     def get_precios(self):
         if self.precios:
