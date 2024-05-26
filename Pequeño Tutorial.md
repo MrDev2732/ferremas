@@ -18,7 +18,7 @@ git branch -D nombre-de-la-rama-a-eliminar
 
 # Para moverte entre ramas
 git checkout nombre-de-la-rama
-
+```
 
 # 🌟 Cómo Iniciar un Proyecto 🌟
 
