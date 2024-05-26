@@ -7,6 +7,18 @@ git init
 ```sh
 git clone https://github.com/MrDev2732/ferremas
 ```
+### 🌿 Crear una Nueva Rama en Git
+Para crear una nueva rama y moverte a ella, puedes usar el siguiente comando:
+```sh
+# Para crear una nueva rama y moverte a ella
+git checkout -b nombre-de-la-nueva-rama
+
+# Para eliminar una rama local
+git branch -D nombre-de-la-rama-a-eliminar
+
+# Para moverte entre ramas
+git checkout nombre-de-la-rama
+
 
 # 🌟 Cómo Iniciar un Proyecto 🌟
 
