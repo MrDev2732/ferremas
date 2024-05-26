@@ -42,7 +42,7 @@ Thumbs.db
 .angular
 
 
-*.sqlite3
+database.sqlite3
 
 # Custom
 reports/
