@@ -2,25 +2,22 @@
   "name": "frontend-ferremas",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": "propilot",
   "sourceRoot": "apps/frontend-ferremas/src",
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/frontend-ferremas",
         "index": "apps/frontend-ferremas/src/index.html",
-        "browser": "apps/frontend-ferremas/src/main.ts",
+        "main": "apps/frontend-ferremas/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/frontend-ferremas/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
         "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/frontend-ferremas/public"
-          }
+          "apps/frontend-ferremas/src/favicon.ico",
+          "apps/frontend-ferremas/src/assets"
         ],
         "styles": ["apps/frontend-ferremas/src/styles.scss"],
         "scripts": []
@@ -42,9 +39,12 @@
           "outputHashing": "all"
         },
         "development": {
+          "buildOptimizer": false,
           "optimization": false,
+          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
       "defaultConfiguration": "production"
@@ -53,10 +53,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "frontend-ferremas:build:production"
+          "browserTarget": "frontend-ferremas:build:production"
         },
         "development": {
-          "buildTarget": "frontend-ferremas:build:development"
+          "browserTarget": "frontend-ferremas:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -64,17 +64,37 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "frontend-ferremas:build"
+        "browserTarget": "frontend-ferremas:build"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/frontend-ferremas/**/*.ts",
+          "apps/frontend-ferremas/**/*.html"
+        ]
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/frontend-ferremas/jest.config.ts"
+        "jestConfig": "apps/frontend-ferremas/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "frontend-ferremas:build"
       }
     }
   }

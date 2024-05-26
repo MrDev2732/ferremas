@@ -1,9 +1,33 @@
 {
   "name": "frontend-ferremas-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
   "sourceRoot": "apps/frontend-ferremas-e2e/src",
-  "implicitDependencies": ["frontend-ferremas"],
-  "// targets": "to see all targets run: nx show project frontend-ferremas-e2e --web",
-  "targets": {}
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/frontend-ferremas-e2e/cypress.config.ts",
+        "devServerTarget": "frontend-ferremas:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "frontend-ferremas:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "frontend-ferremas:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/frontend-ferremas-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["frontend-ferremas"]
 }
