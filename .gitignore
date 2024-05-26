@@ -4,6 +4,11 @@
 dist
 tmp
 /out-tsc
+# Cache directories
+__pycache__/
+.cache/
+.nx/cache/
+# End Generation Here
 
 # dependencies
 node_modules
