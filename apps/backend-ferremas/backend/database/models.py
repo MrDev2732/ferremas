@@ -46,3 +46,13 @@ class Producto(Base, BaseModel):
         if self.precios:
             return self.precios  # Asumiendo que self.precios ya está en el formato correcto
         return []
+
+class Usuario(Base):
+    __tablename__ = 'usuario'
+
+    id = Column(Integer, primary_key=True)
+    rol = Column(String(150), nullable=False)
+    name = Column(String(150), unique=True, nullable=False)
+    password = Column(String(150), nullable=False)
+
+
