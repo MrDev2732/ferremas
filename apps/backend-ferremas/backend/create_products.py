@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 import random
 
-from backend.database.models import Producto
+from backend.database.models import Producto, Categoria
 
 
 def crear_categorias_y_productos(session: Session):
@@ -24,10 +24,11 @@ def crear_categorias_y_productos(session: Session):
     for categoria_principal, subcategorias in categorias.items():
         if isinstance(subcategorias, dict):
             for subcategoria, productos in subcategorias.items():
+                crear_categoria(session, subcategoria)
                 crear_productos(session, subcategoria, productos, marcas)
         else:
+            crear_categoria(session, categoria_principal)
             crear_productos(session, categoria_principal, subcategorias, marcas)
-
 
 def crear_productos(session: Session, categoria, productos, marcas):
     for producto in productos:
@@ -56,22 +57,22 @@ def crear_productos(session: Session, categoria, productos, marcas):
     session.commit()
 
 
-def get_or_create(session: Session, model, **kwargs):
-    instance = session.query(model).filter_by(**kwargs).first()
+def crear_categoria(session: Session, name: str, desc: str = None):
+    # Buscar si ya existe una categoría con el mismo nombre
+    instance = session.query(Categoria).filter_by(name=name).first()
     if instance:
         return instance
     else:
-        # Asegurarse de que todos los campos NOT NULL tengan un valor predeterminado
+        # Crear una nueva instancia de Categoria si no existe
         now = datetime.now()
-        defaults = {
-            'enabled': True,
-            'created_date': now,
-            'modified_date': now,
-            'deleted_date': None  # Asumiendo que puede ser NULL
-        }
-        # Actualizar los valores predeterminados con cualquier valor proporcionado en kwargs
-        defaults.update(kwargs)
-        instance = model(**defaults)
-        session.add(instance)
+        nueva_categoria = Categoria(
+            name=name,
+            desc=desc,
+            enabled=True,  # Valor predeterminado definido en el modelo
+            created_date=now,
+            modified_date=now,
+            deleted_date=None  # Puede ser NULL según el modelo
+        )
+        session.add(nueva_categoria)
         session.commit()
-        return instance
+        return nueva_categoria
