@@ -59,7 +59,6 @@ async def validate_token(api_key: str = Depends(api_key_scheme)):
 @app.on_event("startup")
 def on_startup():
     with Session() as session:
-        # Intenta consultar la tabla Producto para verificar si ya existe.
         try:
             session.query(Producto).first()
             logger.info("La base de datos ya esta inicializada.")
