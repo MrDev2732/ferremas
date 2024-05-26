@@ -1,3 +1,13 @@
+# 🌐 Cómo Conectar al Repositorio
+### Primero, iniciar git
+```sh
+git init
+```
+### Luego, desde el CMD, pegar el siguiente código
+```sh
+git clone https://github.com/MrDev2732/ferremas
+```
+
 # 🌟 Cómo Iniciar un Proyecto 🌟
 
 ## 🏗️ Genera un Monorepo
