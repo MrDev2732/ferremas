@@ -7,7 +7,7 @@ from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
 from backend.create_products import crear_categorias_y_productos
-from backend.database.models import Producto, Base
+from backend.database.models import Producto, Base, Categoria
 
 
 logging.basicConfig(level=logging.INFO,
@@ -69,11 +69,18 @@ def on_startup():
             crear_categorias_y_productos(session)
 
 
-@app.get("/obtener-productos", tags=["Productos"])
+@app.get("/obtener-productos", tags=["TABLAS"])
 async def obtener_productos():
     with Session() as session:
         productos = session.query(Producto).all()
         return productos
+
+
+@app.get("/obtener-categorias", tags=["TABLAS"])
+async def obtener_productos():
+    with Session() as session:
+        categorias = session.query(Categoria).all()
+        return categorias
 
 
 @app.get("/obtener-dolar", tags=["Dolar"])
