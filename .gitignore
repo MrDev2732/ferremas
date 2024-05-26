@@ -42,7 +42,7 @@ Thumbs.db
 .angular
 
 
-# Python
+*.sqlite3
 
 # Custom
 reports/
