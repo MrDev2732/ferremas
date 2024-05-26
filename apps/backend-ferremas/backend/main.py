@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
-from backend.create_products import crear_categorias_y_productos
+from backend.create_cat_prod import crear_categorias_y_productos
 from backend.database.models import Producto, Base, Categoria
 
 
