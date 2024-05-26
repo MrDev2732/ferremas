@@ -1,4 +1,5 @@
 import requests
+import logging
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,6 +8,11 @@ from sqlalchemy.orm import sessionmaker
 
 from backend.create_products import crear_categorias_y_productos
 from backend.database.models import Producto, Base
+
+
+logging.basicConfig(level=logging.INFO,
+                    format='%(levelname)s:     %(name)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 engine = create_engine("sqlite:///database.sqlite3")
@@ -52,9 +58,15 @@ async def validate_token(api_key: str = Depends(api_key_scheme)):
 
 @app.on_event("startup")
 def on_startup():
-    Base.metadata.create_all(engine)
     with Session() as session:
-        crear_categorias_y_productos(session)
+        # Intenta consultar la tabla Producto para verificar si ya existe.
+        try:
+            session.query(Producto).first()
+            logger.info("La base de datos ya esta inicializada.")
+        except Exception as e:
+            Base.metadata.create_all(engine)
+            logger.info("Inicializando la base de datos...")
+            crear_categorias_y_productos(session)
 
 
 @app.get("/obtener-productos", tags=["Productos"])
