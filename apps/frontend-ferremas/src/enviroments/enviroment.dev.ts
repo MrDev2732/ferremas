@@ -8,10 +8,8 @@ export interface Environment {
     ablyApiKey?: string;
 }
 
-export const ENV = new InjectionToken<Environment>('ENV');
-
 export const environment:Environment = {
   apiUrl: 'http://127.0.0.1:8000/api/docs/',
-  elements:false,
-  production:false
+  production:false,
+  elements:false
 };

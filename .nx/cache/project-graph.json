@@ -12454,11 +12454,6 @@
       },
       {
         "source": "frontend-ferremas",
-        "target": "npm:rxjs",
-        "type": "static"
-      },
-      {
-        "source": "frontend-ferremas",
         "target": "npm:@angular/platform-browser",
         "type": "static"
       },

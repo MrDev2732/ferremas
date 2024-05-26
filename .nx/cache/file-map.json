@@ -58,229 +58,99 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": ".editorconfig",
-        "hash": "11532813898455409296"
-      },
-      {
         "file": ".env",
         "hash": "3244421341483603138"
-      },
-      {
-        "file": ".eslintignore",
-        "hash": "13404745306227114823"
-      },
-      {
-        "file": ".eslintrc.json",
-        "hash": "4566917484430375526"
-      },
-      {
-        "file": ".gitignore",
-        "hash": "13659058847956290704"
-      },
-      {
-        "file": ".prettierignore",
-        "hash": "135344717789917661"
-      },
-      {
-        "file": ".prettierrc",
-        "hash": "6820402234827505055"
-      },
-      {
-        "file": ".vscode/extensions.json",
-        "hash": "12670930285458316005"
-      },
-      {
-        "file": "Pequeño Tutorial.md",
-        "hash": "5889337952704808394"
-      },
-      {
-        "file": "README.md",
-        "hash": "17299501197487242393"
-      },
-      {
-        "file": "jest.config.ts",
-        "hash": "7544409015863045561"
-      },
-      {
-        "file": "jest.preset.js",
-        "hash": "7473220183190921152"
-      },
-      {
-        "file": "nx.json",
-        "hash": "2027433590522376874"
-      },
-      {
-        "file": "package-lock.json",
-        "hash": "15948451827243300758"
       },
       {
         "file": "package.json",
         "hash": "14235420011644474379"
       },
       {
+        "file": ".prettierignore",
+        "hash": "135344717789917661"
+      },
+      {
+        "file": ".eslintignore",
+        "hash": "13404745306227114823"
+      },
+      {
         "file": "tsconfig.base.json",
-        "hash": "12471885200579325840"
+        "hash": "16936441711144470533"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "7473220183190921152"
+      },
+      {
+        "file": "README.md",
+        "hash": "17299501197487242393"
+      },
+      {
+        "file": ".eslintrc.json",
+        "hash": "4566917484430375526"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "12670930285458316005"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "7544409015863045561"
+      },
+      {
+        "file": "nx.json",
+        "hash": "303572798634931840"
+      },
+      {
+        "file": ".editorconfig",
+        "hash": "11532813898455409296"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "6820402234827505055"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "13659058847956290704"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "15948451827243300758"
+      },
+      {
+        "file": "Pequeño Tutorial.md",
+        "hash": "5889337952704808394"
       }
     ],
     "projectFileMap": {
-      "frontend-ferremas": [
+      "frontend-ferremas-e2e": [
         {
-          "file": "apps/frontend-ferremas/.eslintrc.json",
-          "hash": "9841770291056711405"
+          "file": "apps/frontend-ferremas-e2e/.eslintrc.json",
+          "hash": "15574607285654336286"
         },
         {
-          "file": "apps/frontend-ferremas/jest.config.ts",
-          "hash": "17201738443758269570"
-        },
-        {
-          "file": "apps/frontend-ferremas/project.json",
-          "hash": "7064713551695608101"
-        },
-        {
-          "file": "apps/frontend-ferremas/public/favicon.ico",
-          "hash": "9303420814833116677"
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/app.component.html",
-          "hash": "3777749283284823321"
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/app.component.scss",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/app.component.spec.ts",
-          "hash": "12417488821325317787",
+          "file": "apps/frontend-ferremas-e2e/playwright.config.ts",
+          "hash": "10746531529294598032",
           "deps": [
-            "npm:@angular/core"
+            "npm:@playwright/test",
+            "npm:@nx/playwright",
+            "npm:@nx/devkit"
           ]
         },
         {
-          "file": "apps/frontend-ferremas/src/app/app.component.ts",
-          "hash": "18017052778481687763",
+          "file": "apps/frontend-ferremas-e2e/project.json",
+          "hash": "9737683791042866200"
+        },
+        {
+          "file": "apps/frontend-ferremas-e2e/src/example.spec.ts",
+          "hash": "1909365745453809229",
           "deps": [
-            "npm:@angular/core",
-            "npm:@angular/router"
+            "npm:@playwright/test"
           ]
         },
         {
-          "file": "apps/frontend-ferremas/src/app/app.config.ts",
-          "hash": "2061310302555965946",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/router"
-          ]
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/app.routes.ts",
-          "hash": "1436336601019856393",
-          "deps": [
-            "npm:@angular/router"
-          ]
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/home/home.component.html",
-          "hash": "16619066491338721079"
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/home/home.component.scss",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/home/home.component.spec.ts",
-          "hash": "15618241637266539250",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/home/home.component.ts",
-          "hash": "11614165497315799549",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/common"
-          ]
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/interfaces/product.ts",
-          "hash": "11911077839667734270"
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/nx-welcome.component.ts",
-          "hash": "4064981416765099860",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/common"
-          ]
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/tienda/tienda.component.html",
-          "hash": "9816026046334254090"
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/tienda/tienda.component.scss",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/tienda/tienda.component.spec.ts",
-          "hash": "1555292462708859051",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "apps/frontend-ferremas/src/app/tienda/tienda.component.ts",
-          "hash": "2542014268926525676",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/common",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "apps/frontend-ferremas/src/enviroments/enviroment.dev.ts",
-          "hash": "3431850779203834536",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "apps/frontend-ferremas/src/index.html",
-          "hash": "17331139946295463817"
-        },
-        {
-          "file": "apps/frontend-ferremas/src/main.ts",
-          "hash": "875041330523952236",
-          "deps": [
-            "npm:@angular/platform-browser"
-          ]
-        },
-        {
-          "file": "apps/frontend-ferremas/src/styles.scss",
-          "hash": "2917954890128038984"
-        },
-        {
-          "file": "apps/frontend-ferremas/src/test-setup.ts",
-          "hash": "10765977267162271731",
-          "deps": [
-            "npm:jest-preset-angular"
-          ]
-        },
-        {
-          "file": "apps/frontend-ferremas/tsconfig.app.json",
-          "hash": "15840844869456775012"
-        },
-        {
-          "file": "apps/frontend-ferremas/tsconfig.editor.json",
-          "hash": "17575078801745175164"
-        },
-        {
-          "file": "apps/frontend-ferremas/tsconfig.json",
-          "hash": "6366082015055176595"
-        },
-        {
-          "file": "apps/frontend-ferremas/tsconfig.spec.json",
-          "hash": "1930986853382524452"
+          "file": "apps/frontend-ferremas-e2e/tsconfig.json",
+          "hash": "1565227750615847722"
         }
       ],
       "backend-ferremas": [
@@ -349,34 +219,156 @@
           "hash": "17931210883608615440"
         }
       ],
-      "frontend-ferremas-e2e": [
+      "frontend-ferremas": [
         {
-          "file": "apps/frontend-ferremas-e2e/.eslintrc.json",
-          "hash": "15574607285654336286"
+          "file": "apps/frontend-ferremas/.eslintrc.json",
+          "hash": "9841770291056711405"
         },
         {
-          "file": "apps/frontend-ferremas-e2e/playwright.config.ts",
-          "hash": "10746531529294598032",
+          "file": "apps/frontend-ferremas/jest.config.ts",
+          "hash": "17201738443758269570"
+        },
+        {
+          "file": "apps/frontend-ferremas/project.json",
+          "hash": "7064713551695608101"
+        },
+        {
+          "file": "apps/frontend-ferremas/public/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/app.component.html",
+          "hash": "17385897758380840601"
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/app.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/app.component.spec.ts",
+          "hash": "12417488821325317787",
           "deps": [
-            "npm:@playwright/test",
-            "npm:@nx/playwright",
-            "npm:@nx/devkit"
+            "npm:@angular/core"
           ]
         },
         {
-          "file": "apps/frontend-ferremas-e2e/project.json",
-          "hash": "9737683791042866200"
-        },
-        {
-          "file": "apps/frontend-ferremas-e2e/src/example.spec.ts",
-          "hash": "1909365745453809229",
+          "file": "apps/frontend-ferremas/src/app/app.component.ts",
+          "hash": "9813655605093853166",
           "deps": [
-            "npm:@playwright/test"
+            "npm:@angular/core",
+            "npm:@angular/router"
           ]
         },
         {
-          "file": "apps/frontend-ferremas-e2e/tsconfig.json",
-          "hash": "1565227750615847722"
+          "file": "apps/frontend-ferremas/src/app/app.config.ts",
+          "hash": "2061310302555965946",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/app.routes.ts",
+          "hash": "14506944054148336569",
+          "deps": [
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/components/home/home.component.html",
+          "hash": "7992524538865794354"
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/components/home/home.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/components/home/home.component.spec.ts",
+          "hash": "2620641819347346630",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/components/home/home.component.ts",
+          "hash": "10554168587709963788",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common"
+          ]
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/components/tienda/tienda.component.html",
+          "hash": "1685436816615093940"
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/components/tienda/tienda.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/components/tienda/tienda.component.ts",
+          "hash": "11726195447229031276",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common"
+          ]
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/interfaces/product.ts",
+          "hash": "11911077839667734270"
+        },
+        {
+          "file": "apps/frontend-ferremas/src/app/nx-welcome.component.ts",
+          "hash": "4064981416765099860",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common"
+          ]
+        },
+        {
+          "file": "apps/frontend-ferremas/src/enviroments/enviroment.dev.ts",
+          "hash": "15950993645658639588",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/frontend-ferremas/src/index.html",
+          "hash": "17331139946295463817"
+        },
+        {
+          "file": "apps/frontend-ferremas/src/main.ts",
+          "hash": "875041330523952236",
+          "deps": [
+            "npm:@angular/platform-browser"
+          ]
+        },
+        {
+          "file": "apps/frontend-ferremas/src/styles.scss",
+          "hash": "2917954890128038984"
+        },
+        {
+          "file": "apps/frontend-ferremas/src/test-setup.ts",
+          "hash": "10765977267162271731",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "apps/frontend-ferremas/tsconfig.app.json",
+          "hash": "15840844869456775012"
+        },
+        {
+          "file": "apps/frontend-ferremas/tsconfig.editor.json",
+          "hash": "17575078801745175164"
+        },
+        {
+          "file": "apps/frontend-ferremas/tsconfig.json",
+          "hash": "6366082015055176595"
+        },
+        {
+          "file": "apps/frontend-ferremas/tsconfig.spec.json",
+          "hash": "1930986853382524452"
         }
       ]
     }
