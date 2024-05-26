@@ -22,8 +22,13 @@
             "input": "apps/frontend-ferremas/public"
           }
         ],
-        "styles": ["apps/frontend-ferremas/src/styles.scss"],
-        "scripts": []
+        "styles": [
+          "apps/frontend-ferremas/src/styles.scss",
+          "node_modules/bootstrap/dist/css/bootstrap.min.css"
+        ],
+        "scripts": [
+          "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+        ]
       },
       "configurations": {
         "production": {
@@ -79,3 +84,4 @@
     }
   }
 }
+
