@@ -50,7 +50,7 @@ class Producto(Base, BaseModel):
 class Usuario(Base):
     __tablename__ = 'usuario'
 
-    id = Column(String, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     password = Column(String(150), nullable=False)
     nombre = Column(String(150), unique=True, nullable=False)
     rol = Column(String(150), nullable=False)
