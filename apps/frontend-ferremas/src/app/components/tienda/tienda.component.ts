@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../../services/product-list.service'; // Importa el servicio
-import { Producto } from '../../interfaces/producto'; // Importa la interfaz Producto
+import { Product } from '../../interfaces/product'; // Importa la interfaz Product
 
 @Component({
   selector: 'propilot-tienda',
@@ -11,13 +11,13 @@ import { Producto } from '../../interfaces/producto'; // Importa la interfaz Pro
   styleUrl: './tienda.component.scss',
 })
 export class TiendaComponent implements OnInit {
-  productos: Producto[] = [];
+  products: Product[] = [];
 
   constructor(private productService: ProductService) {} // Inyecta el servicio
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((data: Producto[]) => {
-      this.productos = data;
+    this.productService.getProducts().subscribe((data: Product[]) => {
+      this.products = data;
     });
   }
 }

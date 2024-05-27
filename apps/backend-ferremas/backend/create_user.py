@@ -5,18 +5,18 @@ import string
 import hashlib
 
 
-from backend.database.models import Usuario
+from backend.database.models import User
 
-def crear_usuario(session: Session, password, nombre, rol):
-    # Crear el objeto usuario
-    usuario = Usuario(
+def create_user(session: Session, password, name, rol):
+    # Crear el objeto userabout:blank#blocked
+    user = User(
         password=hashlib.sha256(password.encode('utf-8')).hexdigest(),
-        nombre=nombre,
+        name=name,
         rol=rol,
     )
 
-    # Agregar el usuario a la sesión y confirmar los cambios
-    session.add(usuario)
+    # Agregar el user a la sesión y confirmar los cambios
+    session.add(user)
     session.commit()
 
-    return usuario
+    return user

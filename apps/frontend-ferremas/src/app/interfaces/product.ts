@@ -1,16 +1,16 @@
-export interface Producto {
+export interface Product {
     id: string;
     name: string;
-    marca: string;
-    imagen: string | null;
-    precios: {
-        fecha: string;
-        valor: number;
+    brand: string;
+    image: string | null;
+    price: {
+        date: string;
+        price: number;
     }[];
     enabled: boolean;
     modified_date: string;
     stock: number;
-    categoria: string;
+    category: string;
     created_date: string;
     deleted_date: string | null;
 }

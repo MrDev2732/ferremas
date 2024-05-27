@@ -7,9 +7,9 @@ from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
 
-from backend.create_cat_prod import crear_categorias_y_productos
-from backend.database.models import Producto, Base, Categoria, Usuario
-from backend.create_user import crear_usuario
+from backend.create_cat_prod import create_category_and_product
+from backend.database.models import Product, Base, Category, User
+from backend.create_user import create_user
 from backend.verify_password import verify_password
 
 logging.basicConfig(level=logging.INFO,
@@ -62,29 +62,29 @@ async def validate_token(api_key: str = Depends(api_key_scheme)):
 def on_startup():
     with Session() as session:
         try:
-            session.query(Producto).first()
+            session.query(Product).first()
             logger.info("La base de datos ya esta inicializada.")
         except Exception as e:
             Base.metadata.create_all(engine)
             logger.info("Inicializando la base de datos...")
-            crear_categorias_y_productos(session)
+            create_category_and_product(session)
            
             
-@app.post("/crear-usuario", tags=["USUARIOS"])
-async def create_user(password, nombre, rol):
+@app.post("/create-user", tags=["USER"])
+async def create_users(password, name, rol):
     with Session() as session:
         try:
-            crear_usuario(session, password, nombre, rol)
+            create_user(session, password, name, rol)
             return {"message": "Usuario creado correctamente"}
         except Exception as e:
-            if "UNIQUE constraint failed: usuario.nombre" in str(e):
+            if "UNIQUE constraint failed: user.name" in str(e):
                 return {"message": "Usuario ya creado"}
 
 
 @app.get("/login")
 async def login(username: str, password: str):
     with Session() as session:
-        user = session.query(Usuario).filter(Usuario.nombre == username).first()
+        user = session.query(User).filter(User.name == username).first()
         if user:
             if verify_password(password, user.password):
                 return {"message": "Inicio de sesión exitoso"}
@@ -94,28 +94,28 @@ async def login(username: str, password: str):
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
 
-@app.get("/obtener-usuario", tags=["TABLAS"])
+@app.get("/get-user", tags=["TABLES"])
 async def obtener_usuario():
     with Session() as session:
-        usuario = session.query(Usuario).all()
-        return usuario
+        user = session.query(User).all()
+        return user
 
 
-@app.get("/obtener-productos", tags=["TABLAS"])
+@app.get("/get-product", tags=["TABLES"])
 async def obtener_productos():
     with Session() as session:
-        productos = session.query(Producto).all()
-        return productos
+        product = session.query(Product).all()
+        return product
 
 
-@app.get("/obtener-categorias", tags=["TABLAS"])
+@app.get("/get-category", tags=["TABLES"])
 async def obtener_productos():
     with Session() as session:
-        categorias = session.query(Categoria).all()
-        return categorias
+        category = session.query(Category).all()
+        return category
 
 
-@app.get("/obtener-dolar", tags=["Dolar"])
+@app.get("/get-dolar", tags=["Dolar"])
 async def obtener_dolar():
     url = 'https://mindicador.cl/api/dolar'
     response = requests.get(url)

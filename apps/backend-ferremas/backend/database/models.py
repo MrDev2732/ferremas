@@ -13,46 +13,46 @@ class BaseModel:
     deleted_date = Column(DateTime, nullable=True)
 
 
-class Categoria(Base, BaseModel):
-    __tablename__ = 'categoria'
+class Category(Base, BaseModel):
+    __tablename__ = 'category'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(150), unique=True)
     desc = Column(String(500), nullable=True)
 
 
-class Producto(Base, BaseModel):
-    __tablename__ = 'producto'
+class Product(Base, BaseModel):
+    __tablename__ = 'product'
 
     id = Column(String(20), primary_key=True)
-    marca = Column(String(50))
+    brand = Column(String(50))
     name = Column(String(150))
-    categoria = Column(String)
+    category = Column(String)
     stock = Column(Integer, default=0)
-    imagen = Column(LargeBinary, nullable=True)
-    precios = Column(JSON, nullable=False)  # Campo JSON para almacenar precios
+    image = Column(LargeBinary, nullable=True)
+    price = Column(JSON, nullable=False)  # Campo JSON para almacenar price
 
 
-    def add_precio(self, valor, fecha=None):
-        if fecha is None:
-            fecha = datetime.now().isoformat()
-        if self.precios is None:
-            self.precios = []
-        self.precios.append({'valor': valor, 'fecha': fecha})
+    def add_price(self, price, date=None):
+        if date is None:
+            date = datetime.now().isoformat()
+        if self.price is None:
+            self.price = []
+        self.price.append({'price': price, 'date': date})
         # No convertir a JSON aquí, manejar como lista de Python
 
 
-    def get_precios(self):
-        if self.precios:
-            return self.precios  # Asumiendo que self.precios ya está en el formato correcto
+    def get_price(self):
+        if self.price:
+            return self.price  # Asumiendo que self.price ya está en el formato correcto
         return []
 
-class Usuario(Base):
-    __tablename__ = 'usuario'
+class User(Base):
+    __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     password = Column(String(150), nullable=False)
-    nombre = Column(String(150), unique=True, nullable=False)
+    name = Column(String(150), unique=True, nullable=False)
     rol = Column(String(150), nullable=False)
 
 

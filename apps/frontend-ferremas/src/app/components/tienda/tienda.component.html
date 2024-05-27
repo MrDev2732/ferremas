@@ -1,7 +1,7 @@
-<div *ngIf="productos.length > 0; else noProducts">
+<div *ngIf="products.length > 0; else noProducts">
   <ul>
-    <li *ngFor="let producto of productos">
-      {{ producto.name }} - {{ producto.categoria }}
+    <li *ngFor="let product of products">
+      {{ product.name }} - {{ product.category }}
     </li>
   </ul>
 </div>
