@@ -21,7 +21,7 @@ readme = 'README.md'
   include = "backend"
 
   [tool.poetry.dependencies]
-  python = ">=3.9,<3.11.5"
+  python = ">=3.9,<=3.12.3"
   fastapi = "^0.111.0"
   pydantic-settings = "^2.2.1"
   sqlmodel = "^0.0.18"
