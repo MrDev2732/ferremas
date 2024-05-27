@@ -86,8 +86,6 @@ async def login(username: str, password: str):
     with Session() as session:
         user = session.query(Usuario).filter(Usuario.nombre == username).first()
         if user:
-            logger.info(user.password)
-            logger.info(password)
             if verify_password(password, user.password):
                 return {"message": "Inicio de sesión exitoso"}
             else:
