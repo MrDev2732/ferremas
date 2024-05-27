@@ -6,10 +6,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
+
 from backend.create_cat_prod import crear_categorias_y_productos
 from backend.database.models import Producto, Base, Categoria, Usuario
 from backend.create_user import crear_usuario
-
+from backend.verify_password import verify_password
 
 logging.basicConfig(level=logging.INFO,
                     format='%(levelname)s:     %(name)s - %(message)s')
@@ -78,6 +79,21 @@ async def create_user(password, nombre, rol):
         except Exception as e:
             if "UNIQUE constraint failed: usuario.nombre" in str(e):
                 return {"message": "Usuario ya creado"}
+
+
+@app.get("/login")
+async def login(username: str, password: str):
+    with Session() as session:
+        user = session.query(Usuario).filter(Usuario.nombre == username).first()
+        if user:
+            logger.info(user.password)
+            logger.info(password)
+            if verify_password(password, user.password):
+                return {"message": "Inicio de sesión exitoso"}
+            else:
+                raise HTTPException(status_code=401, detail="Contraseña incorrecta")
+        else:
+            raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
 
 @app.get("/obtener-usuario", tags=["TABLAS"])
