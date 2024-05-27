@@ -70,9 +70,14 @@ def on_startup():
            
             
 @app.post("/crear-usuario", tags=["USUARIOS"])
-async def create_user(user_id, password, nombre, rol):
+async def create_user(password, nombre, rol):
     with Session() as session:
-        crear_usuario(session, user_id, password, nombre, rol)
+        try:
+            crear_usuario(session, password, nombre, rol)
+            return {"message": "Usuario creado correctamente"}
+        except Exception as e:
+            if "UNIQUE constraint failed: usuario.nombre" in str(e):
+                return {"message": "Usuario ya creado"}
 
 
 @app.get("/obtener-usuario", tags=["TABLAS"])
