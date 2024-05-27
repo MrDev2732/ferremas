@@ -1,1 +1,10 @@
-<p>tienda works!</p>
+<div *ngIf="productos.length > 0; else noProducts">
+  <ul>
+    <li *ngFor="let producto of productos">
+      {{ producto.name }} - {{ producto.categoria }}
+    </li>
+  </ul>
+</div>
+<ng-template #noProducts>
+  <p>No hay productos disponibles.</p>
+</ng-template>
