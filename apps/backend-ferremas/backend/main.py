@@ -7,7 +7,8 @@ from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
 from backend.create_cat_prod import crear_categorias_y_productos
-from backend.database.models import Producto, Base, Categoria
+from backend.database.models import Producto, Base, Categoria, Usuario
+from backend.create_user import crear_usuario
 
 
 logging.basicConfig(level=logging.INFO,
@@ -66,6 +67,19 @@ def on_startup():
             Base.metadata.create_all(engine)
             logger.info("Inicializando la base de datos...")
             crear_categorias_y_productos(session)
+           
+            
+@app.post("/crear-usuario", tags=["USUARIOS"])
+async def create_user(user_id, password, nombre, rol):
+    with Session() as session:
+        crear_usuario(session, user_id, password, nombre, rol)
+
+
+@app.get("/obtener-usuario", tags=["TABLAS"])
+async def obtener_usuario():
+    with Session() as session:
+        usuario = session.query(Usuario).all()
+        return usuario
 
 
 @app.get("/obtener-productos", tags=["TABLAS"])
