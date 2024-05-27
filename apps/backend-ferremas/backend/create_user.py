@@ -20,4 +20,3 @@ def crear_usuario(session: Session, password, nombre, rol):
     session.commit()
 
     return usuario
-
