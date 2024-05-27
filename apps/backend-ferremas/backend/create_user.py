@@ -5,10 +5,9 @@ import string
 
 from backend.database.models import Usuario
 
-def crear_usuario(session: Session, user_id, password, nombre, rol):
+def crear_usuario(session: Session, password, nombre, rol):
     # Crear el objeto usuario
     usuario = Usuario(
-        id=user_id,
         password=password,
         nombre=nombre,
         rol=rol,
