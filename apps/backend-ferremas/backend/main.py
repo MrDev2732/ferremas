@@ -107,7 +107,7 @@ async def obtener_usuario():
 async def delete_product(user_id):
     with Session() as session:
         delete_user_db(session, user_id)
-        return {"detail": "Producto eliminado exitosamente"}
+        return {"detail": "Usuario eliminado exitosamente"}
 
 
 @app.put("/update-user", tags=["CRUD User"])
