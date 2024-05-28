@@ -8,10 +8,16 @@ import { User } from '../app/interfaces/user';
 })
 export class AdminService {
   private apiUrl = 'http://localhost:8000/get-user';
+  private apiUrlDelete = 'http://localhost:8000/delete-user';
 
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl);
   }
+
+  deleteUser(userId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrlDelete}?user_id=${userId}`);
+  }
+
 }
