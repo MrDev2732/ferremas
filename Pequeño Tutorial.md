@@ -73,7 +73,7 @@ npx nx generate @nxlv/python:poetry-project "Nombre de la libreria" \
 
 ## 📚 Genera una nueva vista en un Frontend
 ```sh
-npx nx generate @nrwl/angular:component "nombre de la vista" --project="nombre del frontend" --module=app.module.ts --style=scss --path=apps/frontend-ferremas/src/app
+npx nx generate @nrwl/angular:component "nombre de la vista" --project="nombre del frontend" --module=app.module.ts --style=scss --path=apps/frontend-ferremas/src/app/components
 ```
 
 ## 👁️Generar un nuevo servicio
