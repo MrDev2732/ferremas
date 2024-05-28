@@ -108,23 +108,23 @@ async def delete_product(user_id):
     with Session() as session:
         delete_user_db(session, user_id)
         return {"detail": "Usuario eliminado exitosamente"}
-
+    
 
 @app.put("/update-user", tags=["CRUD User"])
-async def update_product(user_id: str, name=None, category=None, brand=None, image=None, price=None, enable=None):
-    user = {'name': name, 'category': category, 'brand': brand, 'image': image, 'price': price, 'enable': enable}
+async def update_user(user_id: int, name: str, password: str, rol: str):
+    user_data = {'name': name, 'password': password, 'rol': rol}
 
     # Crear una sesión y ejecutar la función síncrona en un hilo separado
-    def db_operation(session, user_id, user):
-        return update_product_db(session, user_id, user)
+    def db_operation(session, user_id, user_data):
+        return update_user_db(session, user_id, user_data)
 
     with Session() as session:
         loop = asyncio.get_running_loop()
-        updated_product_db = await loop.run_in_executor(None, db_operation, session, user_id, user)
+        updated_user_db = await loop.run_in_executor(None, db_operation, session, user_id, user_data)
 
-        if updated_product_db is None:
-            raise HTTPException(status_code=404, detail="Producto no encontrado")
-        return {"detail": "Producto actualizado exitosamente"}
+        if updated_user_db is None:
+            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        return {"detail": "Usuario actualizado exitosamente"}
 
 
 @app.get("/get-products", tags=["CRUD Productos"])

@@ -1,13 +1,13 @@
 <h1>INICIO DE SESION</h1>
 
 <div class="container">
-    <div>
+    <div class="form-group">
         <label for="username">Usuario:</label>
         <input type="text" id="username" name="username" #username>
     </div>
-    <div>
+    <div class="form-group">
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" #password>
     </div>
-    <button (click)="loginUser(username.value, password.value)">Iniciar sesión</button>
+    <button (click)="loginUser(username.value, password.value)" class="btn btn-primary">Iniciar sesión</button>
 </div>
