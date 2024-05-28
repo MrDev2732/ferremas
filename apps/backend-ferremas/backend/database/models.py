@@ -21,6 +21,19 @@ class Category(Base, BaseModel):
     desc = Column(String(500), nullable=True)
 
 
+class Transactions(Base, BaseModel):
+    __tablename__ = 'transaction'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    amount = Column(String(50), nullable=False)
+    currency = Column(String(10), nullable=False)
+    payer_id = Column(String(150), nullable=False)
+    transaction_id = Column(String(150), unique=True, nullable=False)
+    payment_status = Column(String(50), nullable=False)
+    payment_method = Column(String(50), default='PayPal')
+    description = Column(String(500), nullable=True)
+
+
 class Product(Base, BaseModel):
     __tablename__ = 'product'
 
@@ -30,7 +43,7 @@ class Product(Base, BaseModel):
     category = Column(String)
     stock = Column(Integer, default=0)
     image = Column(LargeBinary, nullable=True)
-    price = Column(JSON, nullable=False)  # Campo JSON para almacenar price
+    price = Column(JSON, nullable=False)
 
 
     def add_price(self, price, date=None):
@@ -39,13 +52,13 @@ class Product(Base, BaseModel):
         if self.price is None:
             self.price = []
         self.price.append({'price': price, 'date': date})
-        # No convertir a JSON aquí, manejar como lista de Python
 
 
     def get_price(self):
         if self.price:
-            return self.price  # Asumiendo que self.price ya está en el formato correcto
+            return self.price 
         return []
+
 
 class User(Base):
     __tablename__ = 'user'
@@ -54,5 +67,3 @@ class User(Base):
     password = Column(String(150), nullable=False)
     name = Column(String(150), unique=True, nullable=False)
     rol = Column(String(150), nullable=False)
-
-
