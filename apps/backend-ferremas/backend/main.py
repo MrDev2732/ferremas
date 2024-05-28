@@ -8,7 +8,7 @@ from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
 from backend.crud_productos import create_product_db, update_product_db, delete_product_db
-from backend.crud_users import create_user_db, update_user_db, delete_user_db
+from backend.crud_users import create_user_db, delete_user_db
 from backend.create_db import create_category_and_product
 from backend.database.models import Product, Base, Category, User
 from backend.verify_password import verify_password
@@ -73,10 +73,10 @@ def on_startup():
            
             
 @app.post("/create-user", tags=["CRUD User"])
-async def create_users(password, name, rol):
+async def create_users(name, password, rol):
     with Session() as session:
         try:
-            create_user_db(session, password, name, rol)
+            create_user_db(session, name, password, rol)
             return {"message": "Usuario creado correctamente"}
         except Exception as e:
             if "UNIQUE constraint failed: user.name" in str(e):
@@ -107,24 +107,26 @@ async def obtener_usuario():
 async def delete_product(user_id):
     with Session() as session:
         delete_user_db(session, user_id)
-        return {"detail": "Producto eliminado exitosamente"}
+        return {"detail": "Usuario eliminado exitosamente"}
 
 
 @app.put("/update-user", tags=["CRUD User"])
-async def update_product(user_id: str, name=None, category=None, brand=None, image=None, price=None, enable=None):
-    user = {'name': name, 'category': category, 'brand': brand, 'image': image, 'price': price, 'enable': enable}
+async def update_product(user_id: str, name=None, password=None, rol=None):
+    user = {'name': name, 'password': password, 'brand': rol}
 
+    from backend.crud_users import update_user_db
+    
     # Crear una sesión y ejecutar la función síncrona en un hilo separado
     def db_operation(session, user_id, user):
-        return update_product_db(session, user_id, user)
+        return update_user_db(session, user_id, user)
 
     with Session() as session:
         loop = asyncio.get_running_loop()
-        updated_product_db = await loop.run_in_executor(None, db_operation, session, user_id, user)
+        update_user_db = await loop.run_in_executor(None, db_operation, session, user_id, user)
 
-        if updated_product_db is None:
-            raise HTTPException(status_code=404, detail="Producto no encontrado")
-        return {"detail": "Producto actualizado exitosamente"}
+        if update_user_db is None:
+            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        return {"detail": "Usuario actualizado exitosamente"}
 
 
 @app.get("/get-products", tags=["CRUD Productos"])
