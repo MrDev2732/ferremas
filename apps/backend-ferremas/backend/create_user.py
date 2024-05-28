@@ -1,11 +1,8 @@
 from sqlalchemy.orm import Session
-from datetime import datetime
-import random
-import string
 import hashlib
 
-
 from backend.database.models import User
+
 
 def create_user(session: Session, password, name, rol):
     # Crear el objeto userabout:blank#blocked
@@ -14,9 +11,7 @@ def create_user(session: Session, password, name, rol):
         name=name,
         rol=rol,
     )
-
     # Agregar el user a la sesión y confirmar los cambios
     session.add(user)
     session.commit()
-
     return user
