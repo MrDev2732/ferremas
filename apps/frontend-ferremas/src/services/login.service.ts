@@ -11,7 +11,9 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  getUser(User.name, User.password):  
+  getUser(username: string, password: string) {
+    return this.http.get(`${this.apiUrl}?username=${username}&password=${password}`);
+  }
 }
 
 
