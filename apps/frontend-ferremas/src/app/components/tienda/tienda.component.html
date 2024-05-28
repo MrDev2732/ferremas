@@ -1,10 +1,17 @@
-<div *ngIf="products.length > 0; else noProducts">
-  <ul>
-    <li *ngFor="let product of products">
-      {{ product.name }} - {{ product.category }}
-    </li>
-  </ul>
+<div *ngIf="products.length > 0; else noProducts" class="card-container">
+  <div *ngFor="let product of products" class="card">
+    <div class="card-body">
+      <!-- <img src="../assets/logo.png" class="imagenProd" alt="Imagen del producto"> -->
+      <h5 class="card-title">{{ product.name }}</h5>
+      <p class="card-text">Categoría: {{ product.category }}</p>
+      <p class="card-text">Marca: {{ product.brand }}</p>
+      <p class="card-text">Stock: {{ product.stock }}</p>
+      <p class="card-text">Precio: {{ product.price[0].price * valorDolar | currency:'CLP':'symbol':'1.0-0' }}</p>
+      <button class="btn btn-success">Agregar</button>
+    </div>
+  </div>
 </div>
+
 <ng-template #noProducts>
   <p>No hay productos disponibles.</p>
 </ng-template>
