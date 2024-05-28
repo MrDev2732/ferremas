@@ -64,6 +64,6 @@ class User(Base):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    password = Column(String(150), nullable=False)
     name = Column(String(150), unique=True, nullable=False)
+    password = Column(String(150), nullable=False)
     rol = Column(String(150), nullable=False)
