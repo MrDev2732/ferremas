@@ -12,6 +12,7 @@ import { Product } from '../../interfaces/product'; // Importa la interfaz Produ
 })
 export class TiendaComponent implements OnInit {
   products: Product[] = [];
+  valorDolar: number = 0;
 
   constructor(private productService: ProductService) {} // Inyecta el servicio
 
@@ -19,7 +20,13 @@ export class TiendaComponent implements OnInit {
     this.productService.getProducts().subscribe((data: Product[]) => {
       this.products = data;
     });
+
+    this.productService.getDolar().subscribe((data: number) => {
+      this.valorDolar = data;
+    });
   }
+
+
 }
 
 
