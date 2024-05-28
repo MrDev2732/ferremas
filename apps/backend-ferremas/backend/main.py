@@ -73,10 +73,10 @@ def on_startup():
            
             
 @app.post("/create-user", tags=["CRUD User"])
-async def create_users(password, name, rol):
+async def create_users(name, password, rol):
     with Session() as session:
         try:
-            create_user_db(session, password, name, rol)
+            create_user_db(session, name, password, rol)
             return {"message": "Usuario creado correctamente"}
         except Exception as e:
             if "UNIQUE constraint failed: user.name" in str(e):
@@ -108,7 +108,7 @@ async def delete_product(user_id):
     with Session() as session:
         delete_user_db(session, user_id)
         return {"detail": "Usuario eliminado exitosamente"}
-    
+
 
 @app.put("/update-user", tags=["CRUD User"])
 async def update_user(user_id: int, name: str, password: str, rol: str):
