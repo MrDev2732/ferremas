@@ -29,6 +29,8 @@ export class AdminComponent implements OnInit {
     this.adminService.deleteUser(userId).subscribe(
       (response) => {
         console.log('Respuesta del servidor:', response);
+
+        window.location.reload();
       },
       (error) => {
         console.error('Error al obtener usuario:', error);
@@ -49,6 +51,8 @@ export class AdminComponent implements OnInit {
       }
     });
   }
+
+  
 
   updateUser(): void {
     this.adminService.updateUser(this.newUser).subscribe({
