@@ -1,16 +1,18 @@
 import requests
 import logging
+import asyncio
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
-
-from backend.create_cat_prod import create_category_and_product
+from backend.crud_productos import create_product_db, update_product_db, delete_product_db
+from backend.create_db import create_category_and_product
 from backend.database.models import Product, Base, Category, User
 from backend.create_user import create_user
 from backend.verify_password import verify_password
+
 
 logging.basicConfig(level=logging.INFO,
                     format='%(levelname)s:     %(name)s - %(message)s')
@@ -70,7 +72,7 @@ def on_startup():
             create_category_and_product(session)
            
             
-@app.post("/create-user", tags=["USER"])
+@app.post("/create-user", tags=["CRUD User"])
 async def create_users(password, name, rol):
     with Session() as session:
         try:
@@ -81,7 +83,7 @@ async def create_users(password, name, rol):
                 return {"message": "Usuario ya creado"}
 
 
-@app.get("/login")
+@app.get("/login", tags=["CRUD User"])
 async def login(username: str, password: str):
     with Session() as session:
         user = session.query(User).filter(User.name == username).first()
@@ -94,22 +96,15 @@ async def login(username: str, password: str):
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
 
-@app.get("/get-user", tags=["TABLES"])
+@app.get("/get-user", tags=["CRUD User"])
 async def obtener_usuario():
     with Session() as session:
         user = session.query(User).all()
         return user
 
 
-@app.get("/get-product", tags=["TABLES"])
-async def obtener_productos():
-    with Session() as session:
-        product = session.query(Product).all()
-        return product
-
-
-@app.get("/get-category", tags=["TABLES"])
-async def obtener_productos():
+@app.get("/get-category", tags=["Categorias"])
+async def obtener_categorias():
     with Session() as session:
         category = session.query(Category).all()
         return category
@@ -121,6 +116,50 @@ async def obtener_dolar():
     response = requests.get(url)
     dolar = response.json()["serie"][0]["valor"]
     return dolar
+
+
+@app.get("/get-products", tags=["CRUD Productos"])
+async def get_products():
+    with Session() as session:
+        product = session.query(Product).all()
+        return product
+
+
+@app.get("/get-product", tags=["CRUD Productos"])
+async def get_product(product_id):
+    with Session() as session:
+        return session.query(Product).filter(Product.id == product_id).first()
+
+
+@app.post("/create-product/", tags=["CRUD Productos"])
+async def create_product(category, product, brand):
+    with Session() as session:
+        create_product_db(session, category, product, brand)
+        return {"detail": "Producto creado exitosamente"}
+
+
+@app.delete("/delete-product", tags=["CRUD Productos"])
+async def delete_product(product_id):
+    with Session() as session:
+        delete_product_db(session, product_id)
+        return {"detail": "Producto eliminado exitosamente"}
+
+
+@app.put("/update-product", tags=["CRUD Productos"])
+async def update_product(product_id: str, name=None, category=None, brand=None, image=None, price=None, enable=None):
+    product = {'name': name, 'category': category, 'brand': brand, 'image': image, 'price': price, 'enable': enable}
+    
+    # Crear una sesión y ejecutar la función síncrona en un hilo separado
+    def db_operation(session, product_id, product):
+        return update_product_db(session, product_id, product)
+
+    with Session() as session:
+        loop = asyncio.get_running_loop()
+        updated_product_db = await loop.run_in_executor(None, db_operation, session, product_id, product)
+        
+        if updated_product_db is None:
+            raise HTTPException(status_code=404, detail="Producto no encontrado")
+        return {"detail": "Producto actualizado exitosamente"}
 
 
 if __name__ == "__main__":
