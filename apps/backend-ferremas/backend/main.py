@@ -8,9 +8,9 @@ from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
 from backend.crud_productos import create_product_db, update_product_db, delete_product_db
+from backend.crud_users import create_user_db, update_user_db, delete_user_db
 from backend.create_db import create_category_and_product
 from backend.database.models import Product, Base, Category, User
-from backend.create_user import create_user
 from backend.verify_password import verify_password
 
 
@@ -76,7 +76,7 @@ def on_startup():
 async def create_users(password, name, rol):
     with Session() as session:
         try:
-            create_user(session, password, name, rol)
+            create_user_db(session, password, name, rol)
             return {"message": "Usuario creado correctamente"}
         except Exception as e:
             if "UNIQUE constraint failed: user.name" in str(e):
@@ -103,19 +103,28 @@ async def obtener_usuario():
         return user
 
 
-@app.get("/get-category", tags=["Categorias"])
-async def obtener_categorias():
+@app.delete("/delete-user", tags=["CRUD User"])
+async def delete_product(user_id):
     with Session() as session:
-        category = session.query(Category).all()
-        return category
+        delete_user_db(session, user_id)
+        return {"detail": "Producto eliminado exitosamente"}
 
 
-@app.get("/get-dolar", tags=["Dolar"])
-async def obtener_dolar():
-    url = 'https://mindicador.cl/api/dolar'
-    response = requests.get(url)
-    dolar = response.json()["serie"][0]["valor"]
-    return dolar
+@app.put("/update-user", tags=["CRUD User"])
+async def update_product(user_id: str, name=None, category=None, brand=None, image=None, price=None, enable=None):
+    user = {'name': name, 'category': category, 'brand': brand, 'image': image, 'price': price, 'enable': enable}
+
+    # Crear una sesión y ejecutar la función síncrona en un hilo separado
+    def db_operation(session, user_id, user):
+        return update_product_db(session, user_id, user)
+
+    with Session() as session:
+        loop = asyncio.get_running_loop()
+        updated_product_db = await loop.run_in_executor(None, db_operation, session, user_id, user)
+
+        if updated_product_db is None:
+            raise HTTPException(status_code=404, detail="Producto no encontrado")
+        return {"detail": "Producto actualizado exitosamente"}
 
 
 @app.get("/get-products", tags=["CRUD Productos"])
@@ -160,6 +169,21 @@ async def update_product(product_id: str, name=None, category=None, brand=None, 
         if updated_product_db is None:
             raise HTTPException(status_code=404, detail="Producto no encontrado")
         return {"detail": "Producto actualizado exitosamente"}
+
+
+@app.get("/get-category", tags=["Categorias"])
+async def obtener_categorias():
+    with Session() as session:
+        category = session.query(Category).all()
+        return category
+
+
+@app.get("/get-dolar", tags=["Dolar"])
+async def obtener_dolar():
+    url = 'https://mindicador.cl/api/dolar'
+    response = requests.get(url)
+    dolar = response.json()["serie"][0]["valor"]
+    return dolar
 
 
 if __name__ == "__main__":
