@@ -8,7 +8,8 @@ import { Product } from '../app/interfaces/product';
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:8000/get-product';
+  private apiUrl = 'http://localhost:8000/get-products';
+  private apiUrlDolar = 'http://localhost:8000/get-dolar';
 
   constructor(private http: HttpClient) {}
 
@@ -16,12 +17,8 @@ export class ProductService {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
-  getProductByCode(productCode: string): Observable<Product> {
-    return this.http.get<Product>(`${this.apiUrl}/${productCode}`);
-  }
-
-  addProduct(formData: FormData): Observable<any> {
-    return this.http.post<any>(this.apiUrl, formData);
+  getDolar(): Observable<any> {
+    return this.http.get<any>(this.apiUrlDolar);
   }
 
 }
