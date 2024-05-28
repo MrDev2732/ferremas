@@ -8,7 +8,7 @@ from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
 from backend.crud_productos import create_product_db, update_product_db, delete_product_db
-from backend.crud_users import create_user_db, delete_user_db
+from backend.crud_users import create_user_db, update_user_db, delete_user_db
 from backend.create_db import create_category_and_product
 from backend.database.models import Product, Base, Category, User
 from backend.verify_password import verify_password
@@ -115,16 +115,16 @@ async def update_user(user_id: int, name: str, password: str, rol: str):
     user_data = {'name': name, 'password': password, 'rol': rol}
 
     # Crear una sesión y ejecutar la función síncrona en un hilo separado
-    def db_operation(session, user_id, user):
-        return update_product_db(session, user_id, user)
+    def db_operation(session, user_id, user_data):
+        return update_user_db(session, user_id, user_data)
 
     with Session() as session:
         loop = asyncio.get_running_loop()
-        updated_product_db = await loop.run_in_executor(None, db_operation, session, user_id, user)
+        updated_user_db = await loop.run_in_executor(None, db_operation, session, user_id, user_data)
 
-        if updated_product_db is None:
-            raise HTTPException(status_code=404, detail="Producto no encontrado")
-        return {"detail": "Producto actualizado exitosamente"}
+        if updated_user_db is None:
+            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        return {"detail": "Usuario actualizado exitosamente"}
 
 
 @app.get("/get-products", tags=["CRUD Productos"])
