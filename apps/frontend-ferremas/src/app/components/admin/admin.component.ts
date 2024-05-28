@@ -14,6 +14,7 @@ import { User } from '../../interfaces/user';
 export class AdminComponent implements OnInit {
   users: User[] = [];
   userId: number = 0;
+  newUser: User = {id: 0, name: '', password: '', rol: ''};
 
   constructor(private adminService: AdminService) {}
 
@@ -33,4 +34,20 @@ export class AdminComponent implements OnInit {
       }
     );
   }
+
+  createUser(name: string, password: string, rol: string): void {
+    const newUser: User = { id: 0, name, password, rol }; // Asumiendo que el id se genera en el backend
+    this.adminService.createUser(newUser).subscribe({
+      next: (response) => {
+        console.log(response.message);
+        // Aquí puedes agregar lógica adicional, como actualizar la lista de usuarios.
+        window.location.reload();
+      },
+      error: (error) => {
+        console.error('Error al crear el usuario:', error);
+      }
+    });
+  }
+
+
 }
