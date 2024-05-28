@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ProductService } from '../../../services/product-list.service'; // Importa el servicio
 import { Product } from '../../interfaces/product'; // Importa la interfaz Product
 
 @Component({
-  selector: 'propilot-tienda',
-  standalone: true,
-  imports: [CommonModule],
+  selector: 'app-tienda',
   templateUrl: './tienda.component.html',
-  styleUrl: './tienda.component.scss',
+  styleUrls: ['./tienda.component.scss'],
 })
 export class TiendaComponent implements OnInit {
   products: Product[] = [];
@@ -25,9 +22,8 @@ export class TiendaComponent implements OnInit {
       this.valorDolar = data;
     });
   }
-
-
 }
+
 
 
 
