@@ -5,11 +5,11 @@ from datetime import datetime
 from backend.database.models import User
 
 
-def create_user_db(session: Session, password, name, rol):
+def create_user_db(session: Session, name, password, rol):
     # Crear el objeto userabout:blank#blocked
     user = User(
-        password=hashlib.sha256(password.encode('utf-8')).hexdigest(),
         name=name,
+        password=hashlib.sha256(password.encode('utf-8')).hexdigest(),
         rol=rol,
     )
     # Agregar el user a la sesión y confirmar los cambios
