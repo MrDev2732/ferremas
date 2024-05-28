@@ -15,6 +15,7 @@ export class AdminComponent implements OnInit {
   users: User[] = [];
   userId: number = 0;
   newUser: User = {id: 0, name: '', password: '', rol: ''};
+  userFound: boolean = false;
 
   constructor(private adminService: AdminService) {}
 
@@ -49,5 +50,20 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  updateUser(): void {
+    this.adminService.updateUser(this.newUser).subscribe({
+      next: (response) => {
+        console.log(response.message);
+        this.resetUser();
+      },
+      error: (error) => {
+        console.error('Error al actualizar el usuario:', error);
+      }
+    });
+  }
+
+  resetUser(): void {
+    this.newUser = { id: 0, name: '', password: '', rol: '' };
+  }
 
 }
