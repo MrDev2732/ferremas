@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginService } from '../../../services/login.service'; // Importa el servicio
 import { User } from '../../../app/interfaces/user';
 
+
 @Component({
   selector: 'propilot-login',
   standalone: true,
