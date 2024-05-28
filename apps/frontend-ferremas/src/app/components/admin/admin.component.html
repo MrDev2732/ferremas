@@ -1,11 +1,47 @@
-<div *ngIf="users.length > 0; else noProducts" class="card-container">
-    <div *ngFor="let user of users" class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{ user.name }}</h5>
-        <button class="btn btn-success">Agregar</button>
-      </div>
-    </div>
+<div class="crud-title">
+  <h1>Crud de usuarios</h1>
+  <div class="container">
+    <input type="text" name="" id="" placeholder="Nombre" class="input-agregar">
+    <input type="text" name="" id="" placeholder="Password" class="input-agregar">
+    <input type="text" name="" id="" placeholder="Rol" class="input-agregar">
   </div>
+  <button>Agregar</button>
+</div>
+
+
+<div *ngIf="users.length > 0; else noProducts" style="padding-top: 70px;" class="lista">
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>User</th>
+        <th>Password</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let user of users; let last = last" class="cuerpo">
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.password }}</td>
+          <td>{{ user.rol }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" style="margin: 10px;">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Eliminar</button>
+          </td>
+        </tr>
+        
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noProducts>
+  <p>No hay usuarios disponibles.</p>
+</ng-template>
+
 
 <label for="userId">Usuario:</label>
 <input type="number" id="userId" name="userId" #userId><br><br>
