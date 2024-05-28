@@ -9,6 +9,7 @@ import { User } from '../app/interfaces/user';
 export class AdminService {
   private apiUrl = 'http://localhost:8000/get-user';
   private apiUrlDelete = 'http://localhost:8000/delete-user';
+  private apiUrlCreate = 'http://localhost:8000/create-user';
 
   constructor(private http: HttpClient) { }
 
@@ -19,5 +20,11 @@ export class AdminService {
   deleteUser(userId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrlDelete}?user_id=${userId}`);
   }
+
+  createUser(user: User): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrlCreate}?name=${user.name}&password=${user.password}&rol=${user.rol}`, {});
+  }
+
+  
 
 }

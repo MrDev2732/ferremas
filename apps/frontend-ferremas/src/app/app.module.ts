@@ -9,12 +9,12 @@ import { TiendaComponent } from './components/tienda/tienda.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, TiendaComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     HttpClientModule, // Añade HttpClientModule a los imports
-    TiendaComponent
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
