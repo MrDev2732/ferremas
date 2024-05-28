@@ -18,7 +18,7 @@ def create_user_db(session: Session, password, name, rol):
     return user
 
 
-def update_product_db(session: Session, user_id: str, user: dict):
+def update_user_db(session: Session, user_id: str, user: dict):
     db_user = session.query(User).filter(User.id == user_id).first()
     if db_user:
         for key, value in user.items():
@@ -31,7 +31,7 @@ def update_product_db(session: Session, user_id: str, user: dict):
     return None
 
 
-def delete_product_db(session: Session, user_id: str):
+def delete_user_db(session: Session, user_id: str):
     db_user = session.query(User).filter(User.id == user_id).first()
     if db_user:
         session.delete(db_user)
