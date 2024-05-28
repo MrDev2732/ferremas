@@ -1,0 +1,13 @@
+<div *ngIf="users.length > 0; else noProducts" class="card-container">
+    <div *ngFor="let user of users" class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ user.name }}</h5>
+        <button class="btn btn-success">Agregar</button>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noProducts>
+    <p>No hay productos disponibles.</p>
+  </ng-template>
+  
