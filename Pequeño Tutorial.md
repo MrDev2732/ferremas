@@ -1,3 +1,24 @@
+# 📑 Índice
+
+1. [🌐 Cómo Conectar al Repositorio](#-cómo-conectar-al-repositorio)
+   - [🔧 Iniciar git](#primero-iniciar-git)
+   - [📥 Clonar el repositorio](#luego-desde-el-cmd-pegar-el-siguiente-código)
+   - [🌿 Crear una Nueva Rama en Git](#-crear-una-nueva-rama-en-git)
+2. [🌟 Cómo Iniciar un Proyecto](#-cómo-iniciar-un-proyecto-)
+   - [🏗️ Genera un Monorepo](#-genera-un-monorepo)
+   - [👀 Genera un Nuevo Proyecto (Frontend)](#-genera-un-nuevo-proyecto-frontend)
+   - [🚀 Genera un Nuevo Proyecto (Backend)](#-genera-un-nuevo-proyecto-backend)
+   - [📚 Genera una Nueva Librería](#-genera-una-nueva-librería-para-utilizar-de-forma-global-entre-los-proyectos)
+   - [👁️ Genera una nueva vista en un Frontend](#-genera-una-nueva-vista-en-un-frontend)
+   - [👁️ Generar un nuevo servicio](#️generar-un-nuevo-servicio)
+3. [🏃‍♂️ Cómo Correr los Servidores](#-cómo-correr-los-servidores)
+   - [🖥️ Backend](#️-backend)
+   - [🌐 Frontend](#-frontend)
+4. [📦 Cómo Instalar Dependencias](#-cómo-instalar-dependencias)
+   - [📜 Usando `poetry`](#-si-vas-a-utilizar-poetry)
+   - [📦 Usando `npx`](#-si-vas-a-utilizar-npx)
+5. [📋 Notas Adicionales](#-notas-adicionales)
+
 # 🌐 Cómo Conectar al Repositorio
 ### Primero, iniciar git
 ```sh
@@ -106,4 +127,5 @@ npx nx run "carpeta":add "dependencia"
 - **NX** es un conjunto de herramientas y extensiones para el monorepo que facilita la gestión de aplicaciones y bibliotecas.
 - **Uvicorn** es un servidor ASGI para Python, utilizado comúnmente para correr aplicaciones web rápidas y asincrónicas.
 
+🔧 ¡Asegúrate de tener todas las herramientas necesarias instaladas y configuradas antes de comenzar con tu proyecto!
 🔧 ¡Asegúrate de tener todas las herramientas necesarias instaladas y configuradas antes de comenzar con tu proyecto!
