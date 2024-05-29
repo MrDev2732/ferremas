@@ -1,6 +1,7 @@
 import requests
 import logging
 import asyncio
+import paypalrestsdk
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
@@ -39,6 +40,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+paypalrestsdk.configure({
+    "mode": "sandbox",  # sandbox or live
+    "client_id": "AdnK_iYp1pW_fD8vavvCQUdYeBhXxIQddQZh6ooenQADph8dlzFeGtrjvgEm99q_QJyWC9l8nU9PM_U4",
+    "client_secret": "EP44dwSslrRYbMv7vmTNh747aqMuzK4EdS34gqlMjCOlcgfLXCuJDK3HFMtltzgd7_aCTOb0EFM7qQbg"
+})
 
 api_key_scheme = APIKeyHeader(name="x-api-key")
 
@@ -169,6 +176,37 @@ async def update_product(product_id: str, name=None, category=None, brand=None, 
         if updated_product_db is None:
             raise HTTPException(status_code=404, detail="Producto no encontrado")
         return {"detail": "Producto actualizado exitosamente"}
+
+
+@app.post("/create-payment")
+async def create_payment():
+    payment = paypalrestsdk.Payment({
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"
+        },
+        "transactions": [{
+            "amount": {
+                "total": "30.11",
+                "currency": "USD"
+            },
+            "description": "This is the payment transaction description."
+        }],
+        "redirect_urls": {
+            "return_url": "http://localhost:4200/carrito",
+            "cancel_url": "http://localhost:4200/carrito"
+        }
+    })
+
+    if payment.create():
+        print("Payment created successfully")
+        for link in payment.links:
+            if link.rel == "approval_url":
+                # Capture the url to redirect the user to
+                approval_url = str(link.href)
+                return {"approval_url": approval_url}
+    else:
+        return {"error": "An error occurred while creating the payment"}
 
 
 @app.get("/get-category", tags=["Categorias"])
