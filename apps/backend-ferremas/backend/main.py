@@ -103,15 +103,15 @@ async def login(username: str, password: str):
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
 
-@app.get("/get-user", tags=["CRUD User"])
-async def obtener_usuario():
+@app.get("/get-users", tags=["CRUD User"])
+async def get_users():
     with Session() as session:
         user = session.query(User).all()
         return user
 
 
 @app.delete("/delete-user", tags=["CRUD User"])
-async def delete_product(user_id):
+async def delete_user(user_id):
     with Session() as session:
         delete_user_db(session, user_id)
         return {"detail": "Usuario eliminado exitosamente"}
