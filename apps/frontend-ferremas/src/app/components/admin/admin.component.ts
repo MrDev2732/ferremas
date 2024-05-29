@@ -40,18 +40,21 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  createUser(name: string, password: string, rol: string): void {
-    const newUser: User = { id: 0, name, password, rol }; // Asumiendo que el id se genera en el backend
-    this.adminService.createUser(newUser).subscribe({
-      next: (response) => {
-        console.log(response.message);
-        // Aquí puedes agregar lógica adicional, como actualizar la lista de usuarios.
-        window.location.reload();
-      },
-      error: (error) => {
-        console.error('Error al crear el usuario:', error);
-      }
-    });
+  createUser(): void {
+    if (this.newUser.name && this.newUser.password && this.newUser.rol) {
+      this.adminService.createUser(this.newUser).subscribe({
+        next: (response) => {
+          console.log(response.message);
+          // Aquí puedes agregar lógica adicional, como actualizar la lista de usuarios.
+          window.location.reload();
+        },
+        error: (error) => {
+          console.error('Error al crear el usuario:', error);
+        }
+      });
+    } else {
+      console.error('Todos los campos son obligatorios');
+    }
   }
 
   updateUser(userId: number, user: User): void {
