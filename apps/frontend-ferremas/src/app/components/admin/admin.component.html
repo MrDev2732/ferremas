@@ -21,18 +21,21 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let user of users; let last = last" class="cuerpo">
+      <ng-container *ngFor="let user of users">
         <tr>
           <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.password }}</td>
-          <td>{{ user.rol }}</td>
+          <td><input [(ngModel)]="user.name" type="text" *ngIf="editingUserId === user.id; else viewName"></td>
+          <td><input [(ngModel)]="user.password" type="password" *ngIf="editingUserId === user.id; else viewPassword"></td>
+          <td><input [(ngModel)]="user.rol" type="text" *ngIf="editingUserId === user.id; else viewRol"></td>
           <td>
-            <button class="btn btn-warning btn-sm" style="margin: 10px;">Editar</button>
+            <button class="btn btn-warning btn-sm" (click)="editingUserId = user.id" *ngIf="editingUserId !== user.id">Editar</button>
+            <button class="btn btn-success btn-sm" (click)="updateUser(user.id, user); editingUserId = null" *ngIf="editingUserId === user.id">Guardar</button>
             <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Eliminar</button>
           </td>
         </tr>
-        
+        <ng-template #viewName><td>{{ user.name }}</td></ng-template>
+        <ng-template #viewPassword><td>{{ user.password }}</td></ng-template>
+        <ng-template #viewRol><td>{{ user.rol }}</td></ng-template>
       </ng-container>
     </tbody>
   </table>
@@ -66,5 +69,3 @@
 <ng-template #noProducts>
   <p>No hay productos disponibles.</p>
 </ng-template>
-
-  
