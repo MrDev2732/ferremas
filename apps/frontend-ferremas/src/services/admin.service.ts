@@ -26,12 +26,9 @@ export class AdminService {
     return this.http.post<{ message: string }>(`${this.apiUrlCreate}?name=${user.name}&password=${user.password}&rol=${user.rol}`, {});
   }
 
-  updateUser(user: User): Observable<{ message: string }> {
-    return this.http.put<{ message: string }>(`${this.apiUrlUpdate}?user_id=${user.id}`, {
-      name: user.name,
-      password: user.password,
-      rol: user.rol
-    });
+  updateUser(userId: number, user: User): Observable<{ detail: string }> {
+    const url = `${this.apiUrlUpdate}?user_id=${userId}&name=${user.name}&password=${user.password}&rol=${user.rol}`;
+    return this.http.put<{ detail: string }>(url, {});
   }
 
 }
