@@ -1,0 +1,28 @@
+<p>vendedor works!</p>
+
+
+<div class="vendedor">
+    <h1>Gestión de Productos</h1>
+    
+    <div *ngFor="let product of products">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.category }}</p>
+      <p>{{ product.brand }}</p>
+      <p>{{ product.price[0].price | currency }}</p>
+      <button (click)="editProduct(product)">Editar</button>
+      <button (click)="deleteProduct(product.id)">Eliminar</button>
+    </div>
+    
+    <div *ngIf="selectedProduct">
+      <h2>{{ selectedProduct.id ? 'Editar Producto' : 'Crear Producto' }}</h2>
+      <form (ngSubmit)="saveProduct()">
+        <input [(ngModel)]="selectedProduct.enabled" name="name" placeholder="Nombre">
+        <input [(ngModel)]="selectedProduct.enabled" name="category" placeholder="Categoría">
+        <input [(ngModel)]="selectedProduct.enabled" name="brand" placeholder="Marca">
+        <input [(ngModel)]="selectedProduct.enabled" name="image" placeholder="Imagen">
+        <input [(ngModel)]="selectedProduct.enabled" name="price" placeholder="Precio" type="number">
+        <input [(ngModel)]="selectedProduct.enabled" name="enable" type="checkbox"> Habilitado
+        <button type="submit">{{ selectedProduct.id ? 'Actualizar' : 'Crear' }}</button>
+      </form>
+    </div>
+  </div>
