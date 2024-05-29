@@ -162,8 +162,8 @@ async def delete_product(product_id):
 
 
 @app.put("/update-product", tags=["CRUD Productos"])
-async def update_product(product_id: str, name=None, category=None, brand=None, image=None, price=None, enable=None):
-    product = {'name': name, 'category': category, 'brand': brand, 'image': image, 'price': price, 'enable': enable}
+async def update_product(product_id: str, name=None, stock= int ,category=None, brand=None, image=None, price=None, enable=None):
+    product = {'name': name, 'stock': stock , 'category': category, 'brand': brand, 'image': image, 'price': price, 'enable': enable}
     
     # Crear una sesión y ejecutar la función síncrona en un hilo separado
     def db_operation(session, product_id, product):
