@@ -15,6 +15,25 @@ import { FormsModule } from '@angular/forms';
 export class VendedorComponent implements OnInit {
   products: Product[] = [];
   selectedProduct: Product | null = null;
+  
+  initialProductState: Product = {
+    id: '',
+    name: '',
+    brand: '',
+    image: null,
+    price: [{
+      date: new Date().toISOString(),
+      price: 0
+    }],
+    enabled: true,
+    modified_date: new Date().toISOString(),
+    stock: 0,
+    category: '',
+    created_date: new Date().toISOString(),
+    deleted_date: null
+  };
+
+  newProduct: Product = { ...this.initialProductState };
 
   constructor(private productService: ProductService) {}
 
@@ -51,6 +70,23 @@ export class VendedorComponent implements OnInit {
           this.selectedProduct = null;
         });
       }
+    }
+  }
+
+  createProduct(): void {
+    // Verifica que los campos obligatorios no estén vacíos y que el precio tenga al menos un elemento con un precio definido
+    if (this.newProduct.name && this.newProduct.brand && this.newProduct.category) {
+      this.productService.createProduct(this.newProduct).subscribe({
+        next: () => {
+          this.loadProducts(); // Recarga la lista de productos
+          this.newProduct = { ...this.initialProductState }; // Restablece el formulario a su estado inicial
+        },
+        error: (error) => {
+          console.error('Error al crear el producto:', error);
+        }
+      });
+    } else {
+      console.error('Los campos name, brand, price y category son obligatorios');
     }
   }
 }
