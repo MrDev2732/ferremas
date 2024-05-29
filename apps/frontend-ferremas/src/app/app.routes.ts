@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { VendedorComponent } from './components/vendedor/vendedor.component';
+import { BodegueroComponent } from './components/bodeguero/bodeguero.component';
 
 
 export const appRoutes: Route[] = [
@@ -17,6 +18,7 @@ export const appRoutes: Route[] = [
   { path: 'login', component: LoginComponent},
   { path: 'admin', component: AdminComponent},
   { path: 'vendedor', component: VendedorComponent},
+  { path: 'bodega', component: BodegueroComponent },
 ];
 
 @NgModule({
