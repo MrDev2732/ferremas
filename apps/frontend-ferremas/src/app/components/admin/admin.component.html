@@ -3,9 +3,12 @@
   <div class="container">
     <input type="text" name="name" id="name" placeholder="Nombre" class="input-agregar" #name>
     <input type="password" name="password" id="password" placeholder="Password" class="input-agregar" #password>
-    <input type="text" name="rol" id="rol" placeholder="Rol" class="input-agregar" #rol>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="rol" style="max-width: 70%; margin: auto;" id="rol" #rol>
+      <option value="Vendedor">Vendedor</option>
+      <option value="Bodeguero">Bodeguero</option>
+    </select>
   </div>
-  <button class="btn btn-success" (click)="createUser(name.value, password.value, rol.value)">Agregar</button>
+  <button class="btn btn-success" (click)="createUser(name.value, password.value, rol.value)" style="margin-top: 10px;">Agregar</button>
 </div>
 
 
@@ -26,11 +29,14 @@
           <td>{{ user.id }}</td>
           <td><input [(ngModel)]="user.name" type="text" *ngIf="editingUserId === user.id; else viewName"></td>
           <td><input [(ngModel)]="user.password" type="password" *ngIf="editingUserId === user.id; else viewPassword"></td>
-          <td><input [(ngModel)]="user.rol" type="text" *ngIf="editingUserId === user.id; else viewRol"></td>
+          <td><select [(ngModel)]="user.rol" type="text" *ngIf="editingUserId === user.id; else viewRol">
+            <option value="Vendedor">Vendedor</option>
+            <option value="Bodeguero">Bodeguero</option>
+          </select></td>
           <td>
             <button class="btn btn-warning btn-sm" (click)="editingUserId = user.id" *ngIf="editingUserId !== user.id">Editar</button>
             <button class="btn btn-success btn-sm" (click)="updateUser(user.id, user); editingUserId = null" *ngIf="editingUserId === user.id">Guardar</button>
-            <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Eliminar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)" style="margin-left: 5px;">Eliminar</button>
           </td>
         </tr>
         <ng-template #viewName><td>{{ user.name }}</td></ng-template>
@@ -43,29 +49,4 @@
 
 <ng-template #noProducts>
   <p>No hay usuarios disponibles.</p>
-</ng-template>
-
-
-<label for="userId">Usuario:</label>
-<input type="number" id="userId" name="userId" #userId><br><br>
-<button (click)="deleteUser(userId.valueAsNumber)">Eliminar</button>
-  
-<form (submit)="createUser(name.value, password.value, rol.value)">
-  <div>
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" name="name" #name required>
-  </div>
-  <div>
-    <label for="password">Contraseña:</label>
-    <input type="password" id="password" name="password" #password required>
-  </div>
-  <div>
-    <label for="rol">Rol:</label>
-    <input type="text" id="rol" name="rol" #rol required>
-  </div>
-  <button type="submit">Crear Usuario</button>
-</form>
-
-<ng-template #noProducts>
-  <p>No hay productos disponibles.</p>
 </ng-template>
