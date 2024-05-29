@@ -7,7 +7,7 @@ import { User } from '../app/interfaces/user';
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = 'http://localhost:8000/get-user';
+  private apiUrl = 'http://localhost:8000/get-users';
   private apiUrlDelete = 'http://localhost:8000/delete-user';
   private apiUrlCreate = 'http://localhost:8000/create-user';
   private apiUrlUpdate = 'http://localhost:8000/update-user';
