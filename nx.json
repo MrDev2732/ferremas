@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "propilot",
+  "npmScope": "ferremas",
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx-cloud",
@@ -30,6 +30,11 @@
       "inputs": ["default", "^production"]
     },
     "@angular-devkit/build-angular:application": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "@angular-devkit/build-angular:browser": {
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
