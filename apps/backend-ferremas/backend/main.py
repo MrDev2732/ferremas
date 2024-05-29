@@ -96,7 +96,7 @@ async def login(username: str, password: str):
         user = session.query(User).filter(User.name == username).first()
         if user:
             if verify_password(password, user.password):
-                return {'name': user.name, 'password': user.password, 'rol': user.rol}
+                return True
             else:
                 raise HTTPException(status_code=401, detail="Contraseña incorrecta")
         else:

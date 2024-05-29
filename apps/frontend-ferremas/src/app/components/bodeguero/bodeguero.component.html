@@ -1,4 +1,4 @@
-<p>bodeguero works!</p>
+<!-- <p>bodeguero works!</p>
 
 <div class="vendedor">
   <h1 style="text-align: center; padding-top: 50px;">Gestión de Productos</h1>
@@ -28,6 +28,44 @@
               </tr>
           </tbody>
       </table>
-  </div>
+  </div> -->
 
+  <p>bodeguero works!</p>
+
+  <div class="vendedor">
+    <h1 style="text-align: center; padding-top: 50px;">Gestión de Productos</h1>
+    
+    <div class="table-responsive" style="padding-bottom: 50px;">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Marca</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.brand }}</td>
+                    <td>{{ product.price[0].price | currency }}</td>
+                    <td>
+                      <input [(ngModel)]="product.stock" type="number" *ngIf="editingProductId === product.id; else viewStock">
+                      <ng-template #viewStock><td>{{ product.stock }}</td></ng-template>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" (click)="editingProductId = product.id" *ngIf="editingProductId !== product.id">Editar</button>
+                        <button class="btn btn-success btn-sm" (click)="updateProduct(product)" *ngIf="editingProductId === product.id" [disabled]="!product.stock">Guardar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
   
