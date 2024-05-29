@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Importar FormsModule aquí
 import { AdminService } from '../../../services/admin.service';
 import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'propilot-admin',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule], // Añadir FormsModule aquí
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.scss',
+  styleUrls: ['./admin.component.scss'],
 })
 
 export class AdminComponent implements OnInit {
@@ -16,6 +17,7 @@ export class AdminComponent implements OnInit {
   userId: number = 0;
   newUser: User = {id: 0, name: '', password: '', rol: ''};
   userFound: boolean = false;
+  editingUserId: number | null = null; // Añadir esta línea
 
   constructor(private adminService: AdminService) {}
 
@@ -52,13 +54,11 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  
-
-  updateUser(): void {
-    this.adminService.updateUser(this.newUser).subscribe({
+  updateUser(userId: number, user: User): void {
+    this.adminService.updateUser(userId, user).subscribe({
       next: (response) => {
-        console.log(response.message);
-        this.resetUser();
+        console.log('Usuario actualizado:', response.detail);
+        // Aquí puedes agregar lógica adicional, como actualizar la lista de usuarios sin recargar la página.
       },
       error: (error) => {
         console.error('Error al actualizar el usuario:', error);
