@@ -1,0 +1,33 @@
+<p>bodeguero works!</p>
+
+<div class="vendedor">
+  <h1 style="text-align: center; padding-top: 50px;">Gestión de Productos</h1>
+  
+  <div class="table-responsive" style="padding-bottom: 50px;">
+      <table class="table table-dark table-striped">
+          <thead>
+              <tr>
+                  <th>Id</th>
+                  <th>Nombre</th>
+                  <th>Categoría</th>
+                  <th>Marca</th>
+                  <th>Precio</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let product of products">
+                  <td>{{ product.id }}</td>
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.category }}</td>
+                  <td>{{ product.brand }}</td>
+                  <td>{{ product.price[0].price | currency }}</td>
+                  <td>
+                      <button class="btn btn-primary btn-sm" (click)="updateProduct(product)">Editar</button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  
