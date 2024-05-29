@@ -1,21 +1,19 @@
 <p>vendedor works!</p>
-
-<div class="crud-title">
-  <h1>Agregar nuevo producto</h1>
-  <div class="container">
-    <input type="text" name="productName" id="productName" placeholder="Nombre del producto" class="input-agregar" [(ngModel)]="newProduct.name" required>
-    <input type="text" name="category" id="category" placeholder="Categoría" class="input-agregar" [(ngModel)]="newProduct.category" required>
-    <input type="text" name="brand" id="brand" placeholder="Marca" class="input-agregar" [(ngModel)]="newProduct.brand" required>
-  </div>
-  <button class="btn btn-success" (click)="createProduct()" style="margin-top: 10px;" [disabled]="!newProduct.name || !newProduct.category || !newProduct.brand || !newProduct.price">Agregar</button>
+<div class="crud-productos">
+    <h1 style="text-align: center; padding-top: 50px;">Agregar nuevo producto</h1>
+    <div class="container">  
+        <input type="text" name="productName" id="productName" placeholder="Nombre del producto" class="input-agregar" [(ngModel)]="newProduct.name" required>
+        <input type="text" name="category" id="category" placeholder="Categoría" class="input-agregar" [(ngModel)]="newProduct.category" required>
+        <input type="text" name="brand" id="brand" placeholder="Marca" class="input-agregar" [(ngModel)]="newProduct.brand" required>
+    </div>
+    <button class="btn btn-success agregar" (click)="createProduct()" [disabled]="!newProduct.name || !newProduct.category || !newProduct.brand || !newProduct.price">Agregar</button>
 </div>
-
 
 <div class="vendedor">
   <h1 style="text-align: center; padding-top: 50px;">Gestión de Productos</h1>
   
-  <div class="table-responsive" style="padding-bottom: 50px;">
-      <table class="table table-dark table-striped">
+  <div class="table-responsive" style="padding-bottom: 50px; display: flex; flex-wrap: wrap; justify-content: center;" >
+      <table class="table table-dark table-striped" style="width: 80%;">
           <thead>
               <tr>
                   <th>Id</th>
@@ -33,9 +31,8 @@
                   <td>{{ product.category }}</td>
                   <td>{{ product.brand }}</td>
                   <td>{{ product.price[0].price | currency }}</td>
-                  <td>
-                      <button class="btn btn-primary btn-sm" (click)="editProduct(product)">Editar</button>
-                      <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.id)">Eliminar</button>
+                  <td class="center-btn">
+                    <button class="btn btn-danger btn-sm"  (click)="deleteProduct(product.id)" >Eliminar</button>
                   </td>
               </tr>
           </tbody>
