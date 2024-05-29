@@ -1,16 +1,16 @@
 <div class="crud-title">
   <h1>Crud de usuarios</h1>
   <div class="container">
-    <input type="text" name="name" id="name" placeholder="Nombre" class="input-agregar" #name>
-    <input type="password" name="password" id="password" placeholder="Password" class="input-agregar" #password>
-    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="rol" style="max-width: 70%; margin: auto;" id="rol" #rol>
+    <input type="text" name="name" id="name" placeholder="Nombre" class="input-agregar" [(ngModel)]="newUser.name" required>
+    <input type="password" name="password" id="password" placeholder="Password" class="input-agregar" [(ngModel)]="newUser.password" required>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="rol" style="max-width: 70%; margin: auto;" id="rol" [(ngModel)]="newUser.rol" required>
+      <option value="" disabled selected>Selecciona Rol</option>
       <option value="Vendedor">Vendedor</option>
       <option value="Bodeguero">Bodeguero</option>
     </select>
   </div>
-  <button class="btn btn-success" (click)="createUser(name.value, password.value, rol.value)" style="margin-top: 10px;">Agregar</button>
+  <button class="btn btn-success" (click)="createUser()" style="margin-top: 10px;" [disabled]="!newUser.name || !newUser.password || !newUser.rol">Agregar</button>
 </div>
-
 
 <div *ngIf="users.length > 0; else noProducts" style="padding-top: 70px;" class="lista">
   <table class="table table-dark table-striped">
@@ -35,7 +35,7 @@
           </select></td>
           <td>
             <button class="btn btn-warning btn-sm" (click)="editingUserId = user.id" *ngIf="editingUserId !== user.id">Editar</button>
-            <button class="btn btn-success btn-sm" (click)="updateUser(user.id, user); editingUserId = null" *ngIf="editingUserId === user.id">Guardar</button>
+            <button class="btn btn-success btn-sm" (click)="updateUser(user.id, user); editingUserId = null" *ngIf="editingUserId === user.id" [disabled]="!user.name || !user.password || !user.rol">Guardar</button>
             <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)" style="margin-left: 5px;">Eliminar</button>
           </td>
         </tr>
