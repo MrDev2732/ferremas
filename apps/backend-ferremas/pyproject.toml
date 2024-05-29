@@ -27,8 +27,9 @@ readme = 'README.md'
   sqlmodel = "^0.0.18"
   requests = "^2.32.2"
   numpy = "^1.26.4"
-  transbank-sdk = "^5.0.0"
   flask = "^3.0.3"
+  paypal-checkout-serversdk = "^1.0.3"
+  paypalrestsdk = "^1.13.3"
 
   [tool.poetry.group.dev.dependencies]
   autopep8 = "2.0.2"
