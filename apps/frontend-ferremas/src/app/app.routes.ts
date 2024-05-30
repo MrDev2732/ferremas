@@ -7,16 +7,16 @@ import { AdminComponent } from './components/admin/admin.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { VendedorComponent } from './components/vendedor/vendedor.component';
 import { BodegueroComponent } from './components/bodeguero/bodeguero.component';
-import { AuthGuard } from './guards/auth.guard'; // Asegúrate de importar el AuthGuard
+import { AuthGuard } from './guards/auth.guard';
 
 export const appRoutes: Route[] = [
   { path: '', component: HomeComponent },
   { path: 'tienda', component: TiendaComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent,},
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: { expectedRoles: ['ADMINISTRADOR'] } },
   { path: 'carrito', component: CarritoComponent },
-  { path: 'vendedor', component: VendedorComponent, canActivate: [AuthGuard], data: { expectedRole: 'VENDEDOR' } },
-  { path: 'bodega', component: BodegueroComponent, canActivate: [AuthGuard], data: { expectedRole: 'BODEGUERO' } },
+  { path: 'vendedor', component: VendedorComponent, canActivate: [AuthGuard], data: { expectedRoles: ['VENDEDOR'] } },
+  { path: 'bodega', component: BodegueroComponent, canActivate: [AuthGuard], data: { expectedRoles: ['BODEGUERO'] } },
 ];
 
 @NgModule({
