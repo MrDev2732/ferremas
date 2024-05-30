@@ -34,7 +34,7 @@ export class LoginComponent {
       (response: any) => {
         // Extraer la información del usuario y su rol
         const { name, rol } = response;
-        console.log('Usuario:', name);
+        console.log('Usuario:', username);
         console.log('Rol:', rol);
   
         // Redirigir según el rol del usuario
@@ -42,10 +42,10 @@ export class LoginComponent {
           case 'admin':
             this.router.navigate(['/admin']);
             break;
-          case 'vendedor':
+          case 'VENDEDOR':
             this.router.navigate(['/vendedor']);
             break;
-          case 'Bodeguero':
+          case 'BODEGUERO':
             this.router.navigate(['bodega']);
             break;
           // Agrega casos para otros roles si es necesario

@@ -10,7 +10,7 @@ def create_user_db(session: Session, name, password, rol):
     user = User(
         name=name,
         password=hashlib.sha256(password.encode('utf-8')).hexdigest(),
-        rol=rol,
+        rol=rol.upper(),
     )
     # Agregar el user a la sesión y confirmar los cambios
     session.add(user)
