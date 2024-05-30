@@ -15,13 +15,13 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/login">Login</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="userRole === 'ADMINISTRADOR'">
           <a class="nav-link" routerLink="/admin">Admin</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="userRole === 'VENDEDOR'">
           <a class="nav-link" routerLink="/vendedor">Vendedor</a>
         </li>
-        <li class="nav-item" >
+        <li class="nav-item" *ngIf="userRole === 'BODEGUERO'">
           <a class="nav-link" routerLink="/bodega">Bodega</a>
         </li>
         <li class="nav-item">
