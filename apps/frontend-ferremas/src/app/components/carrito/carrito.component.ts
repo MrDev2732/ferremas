@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./carrito.component.scss']
 })
 export class CarritoComponent {
-  total: number = 500;
+  total: number = 0;
   valorDolar: number = 0;
   cart: { product: Product, quantity: number } [] = [];
 
@@ -29,7 +29,7 @@ export class CarritoComponent {
 
   getTotal(): number {
     return this.cart.reduce((total, item) => {
-      return total + item.product.price[0].price * item.quantity;
+      return total + item.product.price[0].price * item.quantity * this.valorDolar;
     }, 0);
   }
 
@@ -39,6 +39,7 @@ export class CarritoComponent {
   }
 
   makePayment() {
+    this.total = this.getTotal();
     this.carritoService.createPayment(this.total).subscribe((response: any) => {
       window.location.href = response.approval_url;
     }, error => {
