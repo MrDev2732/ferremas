@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarritoService } from '../../../services/carrito.service';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../interfaces/product'
-import { ProductService } from 'apps/frontend-ferremas/src/services/product-list.service';
+import { ProductService } from 'apps/frontend-ferremas/src/services/product.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,9 +22,15 @@ export class CarritoComponent {
   }
 
   ngOnInit(): void {
-    this.productService.getDolar().subscribe((data: number) => {
-      this.valorDolar = data;
-    });
+    const storedDolar = localStorage.getItem('valorDolar');
+    if (storedDolar) {
+      this.valorDolar = parseFloat(storedDolar);
+    } else {
+      this.productService.getDolar().subscribe((data: number) => {
+        this.valorDolar = data;
+        localStorage.setItem('valorDolar', data.toString());
+      });
+    }
   }
 
   getTotal(): number {
