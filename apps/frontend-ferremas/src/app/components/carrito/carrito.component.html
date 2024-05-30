@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="checkout-container">
-      <h3>Total: {{ getTotal() * valorDolar | currency:'CLP': 'symbol':'1.0-0' }}</h3>
+      <h3>Total: {{ getTotal() | currency:'CLP': 'symbol':'1.0-0' }}</h3>
       <button class="btn btn-primary" (click)="makePayment()">Pagar con PayPal</button>
     </div>
   </div>
