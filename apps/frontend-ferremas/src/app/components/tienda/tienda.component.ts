@@ -14,11 +14,14 @@ export class TiendaComponent implements OnInit {
   products: Product[] = [];
   valorDolar: number = 0;
 
-  constructor(private productService: ProductService, private carritoService: CarritoService) {} // Inyecta el servicio
-  
+  constructor(private productService: ProductService, private carritoService: CarritoService) {}
+
   ngOnInit(): void {
     this.productService.getProducts().subscribe((data: Product[]) => {
-      this.products = data;
+      this.products = data.map(product => ({
+        ...product,
+        image: product.image ? 'data:image/jpeg;base64,' + product.image : null
+      }));
     });
 
     this.productService.getDolar().subscribe((data: number) => {
@@ -30,7 +33,3 @@ export class TiendaComponent implements OnInit {
     this.carritoService.addToCart(product);
   }
 }
-
-
-
-
