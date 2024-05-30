@@ -21,13 +21,13 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/vendedor">Vendedor</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" >
           <a class="nav-link" routerLink="/bodega">Bodega</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/carrito">Carrito</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isUserLoggedIn()">
           <a class="nav-link" href="#" (click)="logout()">Cerrar Sesión</a>
         </li>
       </ul>
