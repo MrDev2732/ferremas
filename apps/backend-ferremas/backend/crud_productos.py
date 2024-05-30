@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from backend.database.models import Product
 
 
-def create_product_db(session: Session, category, product, brand, image = None):
+def create_product_db(session: Session, category, product, brand, image):
     code_product = f'{product[:3].upper()}-{random.randint(100, 999)}'
     now = datetime.now()
     price = [
@@ -22,7 +22,7 @@ def create_product_db(session: Session, category, product, brand, image = None):
             name=product,
             category=category,
             stock=random.randint(1, 100),
-            image= image,
+            image=image,
             enabled=True,
             created_date=now,
             modified_date=now,
