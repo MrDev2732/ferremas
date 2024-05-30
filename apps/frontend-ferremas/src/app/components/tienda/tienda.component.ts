@@ -30,7 +30,10 @@ export class TiendaComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.carritoService.addToCart(product);
+    const added = this.carritoService.addToCart(product);
+    if (!added) {
+      alert('No se puede agregar mas de este producto, stock insuficiente.');
+    }
   }
 
 }
