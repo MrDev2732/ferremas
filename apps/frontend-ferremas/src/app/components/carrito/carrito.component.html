@@ -1,12 +1,15 @@
 <div class="carrito-container">
   <div *ngIf="cart.length > 0; else emptyCart">
     <h2>Carrito de Compras</h2>
-    <div *ngFor="let product of cart">
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.brand }}</p>
-      <p>{{ product.price[0].price | currency }}</p>
+    <div *ngFor="let item of cart">
+      <h3>{{ item.product.name }}</h3>
+      <p>{{ item.product.brand }}</p>
+      <p>{{ item.product.price[0].price * valorDolar | currency:'CLP':'symbol':'1.0-0'  }}</p>
+      <p>Cantidad: {{ item.quantity }}</p>
     </div>
+    <h3>Total: {{ getTotal() * valorDolar | currency:'CLP':'symbol':'1.0-0' }}</h3>
   </div>
+</div>
 
   <ng-template #emptyCart>
     <p>El carrito está vacío.</p>
@@ -16,4 +19,4 @@
     <button (click)="makePayment()">Pagar con PayPal</button>
   
     <!-- Más elementos de tu carrito aquí -->
-  </div>
+  
