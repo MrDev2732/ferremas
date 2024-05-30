@@ -18,11 +18,13 @@ export class LoginComponent {
       (response: any) => {
         const userRole = response.rol; 
         const userPassword = response.password
-        const user = response.user// Changed from 'userRole' to 'rol'
+        const user = response.user
+        const isLoged = true// Changed from 'userRole' to 'rol'
         if (userRole) {
           localStorage.setItem('userRole', userRole);
           localStorage.setItem('userPassword', userPassword);
-          localStorage.setItem('user', user) // Store user role
+          localStorage.setItem('user', user);
+          localStorage.setItem('isLoged', isLoged.toString()); // Store user role
           this.redirectUser(userRole); // Redirect user based on role
         } else {
           console.error('User role not provided');
