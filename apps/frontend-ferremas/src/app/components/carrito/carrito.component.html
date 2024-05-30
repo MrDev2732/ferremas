@@ -1,22 +1,33 @@
-<div class="carrito-container">
-  <div *ngIf="cart.length > 0; else emptyCart">
-    <h2>Carrito de Compras</h2>
-    <div *ngFor="let item of cart">
-      <h3>{{ item.product.name }}</h3>
-      <p>{{ item.product.brand }}</p>
-      <p>{{ item.product.price[0].price * valorDolar | currency:'CLP':'symbol':'1.0-0'  }}</p>
-      <p>Cantidad: {{ item.quantity }}</p>
-    </div>
-    <h3>Total: {{ getTotal() * valorDolar | currency:'CLP':'symbol':'1.0-0' }}</h3>
+<div *ngIf="cart.length > 0; else emptyCart" class="table-responsive" style="padding-top: 70px" >
+  <h2 style="text-align: center; padding-bottom: 10px;">Carrito de Compras</h2>
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cart">
+        <td>{{ item.product.id }}</td>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.product.brand }}</td>
+        <td>{{ item.product.price[0].price * valorDolar | currency:'CLP': 'symbol':'1.0-0' }}</td>
+        <td>{{ item.quantity }}</td>
+        <td><button class="btn btn-warning" (click)="removeFromCart(item.product.id)">Eliminar</button></td>
+        <button (click)="makePayment()">Pagar con PayPal</button>
+      </tr>
+    </tbody>
+  </table>
+  <div class="total-container" style="text-align: center;">
+    <h3>Total: {{ getTotal()  * valorDolar | currency:'CLP': 'symbol':'1.0-0' }}</h3>
   </div>
 </div>
-
-  <ng-template #emptyCart>
-    <p>El carrito está vacío.</p>
-  </ng-template>
-  
-    <!-- Botón para realizar el pago -->
-    <button (click)="makePayment()">Pagar con PayPal</button>
-  
-    <!-- Más elementos de tu carrito aquí -->
+<ng-template #emptyCart>
+  <p>El carrito está vacío.</p>
+</ng-template>
   
