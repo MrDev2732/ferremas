@@ -1,13 +1,16 @@
-
-<h1>CACA</h1>
-<h1>CACA</h1>
-<h1>CACA</h1>
-<h1>CACA</h1>
-<h1>CACA</h1>
-
-
 <div class="carrito-container">
-    <!-- Otros elementos de tu carrito aquí -->
+  <div *ngIf="cart.length > 0; else emptyCart">
+    <h2>Carrito de Compras</h2>
+    <div *ngFor="let product of cart">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.brand }}</p>
+      <p>{{ product.price[0].price | currency }}</p>
+    </div>
+  </div>
+
+  <ng-template #emptyCart>
+    <p>El carrito está vacío.</p>
+  </ng-template>
   
     <!-- Botón para realizar el pago -->
     <button (click)="makePayment()">Pagar con PayPal</button>
