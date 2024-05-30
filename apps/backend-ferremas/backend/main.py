@@ -224,7 +224,7 @@ async def create_payment(total: float):
         "transactions": [{
             "amount": {
                 "total": str(total),  # Ahora el total es dinámico
-                "currency": "CLP"
+                "currency": "USD"
             },
             "description": "Descripción de la transacción de pago."
         }],
