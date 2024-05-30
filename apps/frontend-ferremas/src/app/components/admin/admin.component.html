@@ -30,8 +30,9 @@
           <td><input [(ngModel)]="user.name" type="text" *ngIf="editingUserId === user.id; else viewName"></td>
           <td><input [(ngModel)]="user.password" type="password" *ngIf="editingUserId === user.id; else viewPassword"></td>
           <td><select [(ngModel)]="user.rol" type="text" *ngIf="editingUserId === user.id; else viewRol">
-            <option value="Vendedor">Vendedor</option>
-            <option value="Bodeguero">Bodeguero</option>
+            <option value="Vendedor">VENDEDOR</option>
+            <option value="Bodeguero">BOGUERO</option>
+            <option value="Bodeguero">ADMIN</option>
           </select></td>
           <td>
             <button class="btn btn-warning btn-sm" (click)="editingUserId = user.id" *ngIf="editingUserId !== user.id">Editar</button>
