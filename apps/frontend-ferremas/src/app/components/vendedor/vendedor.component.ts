@@ -5,6 +5,7 @@ import { Product } from '../../interfaces/product';
 import { FormsModule } from '@angular/forms';
 
 
+
 @Component({
   selector: 'propilot-vendedor',
   standalone: true,
@@ -15,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 export class VendedorComponent implements OnInit {
   products: Product[] = [];
   selectedProduct: Product | null = null;
+  valorDolar: number = 0;
+  private readonly DOLAR_KEY = 'valorDolar';
   
   initialProductState: Product = {
     id: '',
@@ -41,8 +44,20 @@ export class VendedorComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
+    this.checkAndSetDolarValue();
   }
 
+  checkAndSetDolarValue(): void {
+    const cachedDolar = localStorage.getItem(this.DOLAR_KEY);
+    if (cachedDolar) {
+      this.valorDolar = parseFloat(cachedDolar);
+    } else {
+      this.productService.getDolar().subscribe((data: number) => {
+        this.valorDolar = data;
+        localStorage.setItem(this.DOLAR_KEY, data.toString());
+      });
+    }
+  }
 
   loadProducts(): void {
     this.productService.getProducts().subscribe(products => {
