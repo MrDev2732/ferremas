@@ -1,14 +1,115 @@
-button {
-  padding: 10px 20px;
-  background-color: #0070ba;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #005ea6;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
+.carrito-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 80px; /* Ajusta según la altura de tu navbar */
+  margin-bottom: 40px; /* Ajusta según la altura de tu footer */
+}
+
+.carrito-container {
+  width: 80%;
+  max-width: 800px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.carrito-container h2, .checkout-container h3 {
+  text-align: center;
+  color: #333;
+}
+
+.items-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-info h4 {
+  color: #333;
+}
+
+.item-info p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.item-actions {
+  text-align: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-warning {
+  background-color: #f0ad4e;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  display: block;
+  width: 200px;
+  margin: 20px auto;
+}
+
+.checkout-container {
+  margin-top: 20px;
+}
+
+.empty-cart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh; /* Ajusta según sea necesario */
+  text-align: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.empty-cart-container h2 {
+  color: #333;
+}
+
+.empty-cart-container p {
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .carrito-container {
+    width: 100%;
+  }
+
+  .item-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
