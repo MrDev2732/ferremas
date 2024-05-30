@@ -2,13 +2,14 @@ import requests
 import logging
 import asyncio
 import paypalrestsdk
-from fastapi import FastAPI, HTTPException, Depends, status
+import base64
+from fastapi import FastAPI, File, HTTPException, Depends, UploadFile, status
 from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
-from backend.crud_productos import create_product_db, update_product_db, delete_product_db
+from backend.crud_productos import convert_image_to_binary, create_product_db, update_product_db, delete_product_db
 from backend.crud_users import create_user_db, update_user_db, delete_user_db
 from backend.create_db import create_category_and_product
 from backend.database.models import Product, Base, Category, User
@@ -137,15 +138,45 @@ async def update_user(user_id: int, name: str, password: str, rol: str):
 @app.get("/get-products", tags=["CRUD Productos"])
 async def get_products():
     with Session() as session:
-        product = session.query(Product).all()
-        return product
+        products = session.query(Product).all()
+        result = []
+        for product in products:
+            # Convertir la imagen a base64 si existe
+            if product.image:
+                image_base64 = base64.b64encode(product.image).decode('utf-8')
+            else:
+                image_base64 = None
+
+            # Agregar el producto con la imagen codificada a la lista de resultados
+            result.append({
+                "id": product.id,
+                "name": product.name,
+                "stock": product.stock,
+                "category": product.category,
+                "brand": product.brand,
+                "image": image_base64,  # Imagen codificada en base64
+                "price": product.price,
+                "enable": product.enable if hasattr(product, 'enable') else None  # Asegúrate de que 'enable' existe
+            })
+
+        return result
 
 
 @app.get("/get-product", tags=["CRUD Productos"])
 async def get_product(product_id):
     with Session() as session:
-        return session.query(Product).filter(Product.id == product_id).first()
+        product = session.query(Product).filter(Product.id == product_id).first()
+        if not product:
+            raise HTTPException(status_code=404, detail="Producto no encontrado")
 
+        # Convertir la imagen a base64 si existe
+        if product.image:
+            product.image = base64.b64encode(product.image).decode('utf-8')
+        else:
+            product.image = None
+
+        # Devolver todos los datos excepto la imagen binaria directamente
+        return product
 
 @app.post("/create-product/", tags=["CRUD Productos"])
 async def create_product(category, product, brand):
@@ -162,9 +193,12 @@ async def delete_product(product_id):
 
 
 @app.put("/update-product", tags=["CRUD Productos"])
-async def update_product(product_id: str, name=None, stock= int ,category=None, brand=None, image=None, price=None, enable=None):
+async def update_product(product_id: str, name=None, stock=None ,category=None, brand=None, image: UploadFile=None, price=None, enable=None):
+    if image:
+        image = await convert_image_to_binary(image)
+
     product = {'name': name, 'stock': stock , 'category': category, 'brand': brand, 'image': image, 'price': price, 'enable': enable}
-    
+
     # Crear una sesión y ejecutar la función síncrona en un hilo separado
     def db_operation(session, product_id, product):
         return update_product_db(session, product_id, product)
@@ -172,7 +206,7 @@ async def update_product(product_id: str, name=None, stock= int ,category=None, 
     with Session() as session:
         loop = asyncio.get_running_loop()
         updated_product_db = await loop.run_in_executor(None, db_operation, session, product_id, product)
-        
+
         if updated_product_db is None:
             raise HTTPException(status_code=404, detail="Producto no encontrado")
         return {"detail": "Producto actualizado exitosamente"}

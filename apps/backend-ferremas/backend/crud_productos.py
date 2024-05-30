@@ -1,5 +1,7 @@
 import random
 from datetime import datetime
+
+from fastapi import UploadFile
 from sqlalchemy.orm import Session
 
 from backend.database.models import Product
@@ -30,6 +32,9 @@ def create_product_db(session: Session, category, product, brand, image = None):
     session.add(db_product)
     session.commit()
     return db_product
+
+def convert_image_to_binary(image: UploadFile):
+    return image.read()
 
 
 def update_product_db(session: Session, product_id: str, product: dict):
