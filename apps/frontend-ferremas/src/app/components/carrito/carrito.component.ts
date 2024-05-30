@@ -29,7 +29,7 @@ export class CarritoComponent {
 
   getTotal(): number {
     return this.cart.reduce((total, item) => {
-      return total + item.product.price[0].price * item.quantity * this.valorDolar;
+      return total + item.product.price[0].price * item.quantity;
     }, 0);
   }
 
