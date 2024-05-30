@@ -54,7 +54,7 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.category }}</td>
                     <td>{{ product.brand }}</td>
-                    <td>{{ product.price[0].price | currency }}</td>
+                    <td>{{ product.price[0].price * valorDolar | currency:'CLP':'symbol':'1.0-0' }}</td>
                     <td>
                       <input [(ngModel)]="product.stock" type="number" *ngIf="editingProductId === product.id; else viewStock">
                       <ng-template #viewStock><td>{{ product.stock }}</td></ng-template>
