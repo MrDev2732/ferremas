@@ -10,19 +10,18 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-      const expectedRole = next.data['expectedRole'];
-      const userRole = this.getUserRole(); // Implementa esta función según tu lógica de autenticación
+      const expectedRoles = next.data['expectedRoles'] as string[];
+      const userRole = this.getUserRole();
 
-      if (userRole === expectedRole) {
+      if (expectedRoles.includes(userRole)) {
         return true;
       } else {
-        this.router.navigate(['/login']); // Redirige a una página de no autorizado o a login
+        this.router.navigate(['/login']); // Redirige a login si no cumple con los roles
         return false;
       }
   }
 
   private getUserRole(): string {
-    // Retorna un valor predeterminado si 'userRole' es null
     return localStorage.getItem('userRole') || 'defaultRole';
   }
 }
