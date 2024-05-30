@@ -3,6 +3,7 @@
     <div class="card-body">
       <!-- <img src="../assets/logo.png" class="imagenProd" alt="Imagen del producto"> -->
       <h5 class="card-title">{{ product.name }}</h5>
+      <img *ngIf="product.image" [src]="product.image" alt="Product Image">
       <p class="card-text">Categoría: {{ product.category }}</p>
       <p class="card-text">Marca: {{ product.brand }}</p>
       <p class="card-text">Stock: {{ product.stock }}</p>
