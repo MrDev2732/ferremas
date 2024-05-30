@@ -22,16 +22,15 @@ export class ProductService {
     return this.http.get<Product>(`${this.apiUrl}/get-product/${id}`);
   }
 
-  createProduct(product: Product): Observable<{message: string}> {
-    return this.http.post<{message: string}>(`${this.apiUrl}/create-product/?category=${product.category}&product=${product.name}&brand=${product.brand}`,{});
+  createProduct(formData: FormData): Observable<{message: string}> {
+    return this.http.post<{message: string}>(`${this.apiUrl}/create-product`, formData);
   }
 
   updateProduct(id: string, product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.apiUrl}/update-product/${id}`, product);
+    return this.http.put<Product>(`${this.apiUrl}/update-product${id}`, product);
   }
 
   deleteProduct(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete-product?product_id=${id}`);
   }
 }
-

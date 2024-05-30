@@ -32,4 +32,5 @@ export class TiendaComponent implements OnInit {
   addToCart(product: Product) {
     this.carritoService.addToCart(product);
   }
+
 }

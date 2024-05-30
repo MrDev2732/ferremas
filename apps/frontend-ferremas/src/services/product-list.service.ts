@@ -26,15 +26,15 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiUrl}/get-product`);
   }
 
-  getProductos(id: String): Observable<Product> {
-    return this.http.get<Product>(`${this.apiUrl}/get-product/${id}`);
+  getProductos(id: string): Observable<Product> {
+    return this.http.get<Product>(`${this.apiUrl}/get-product${id}`);
   }
 
   updateProduct(id: string, product: Product): Observable<Product>{
-    return this.http.put<Product>(`${this.apiUrl}/update-product/${id}`, product);
+    return this.http.put<Product>(`${this.apiUrl}/update-product${id}`, product);
   }
 
   deleteProduct(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete-product/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/delete-product${id}`);
   }
 }

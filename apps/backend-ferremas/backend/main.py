@@ -3,7 +3,7 @@ import logging
 import asyncio
 import paypalrestsdk
 import base64
-from fastapi import FastAPI, File, HTTPException, Depends, UploadFile, status
+from fastapi import FastAPI, File, HTTPException, Depends, UploadFile, status, Form
 from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import create_engine, Session
@@ -78,8 +78,8 @@ def on_startup():
             Base.metadata.create_all(engine)
             logger.info("Inicializando la base de datos...")
             create_category_and_product(session)
-           
-            
+
+
 @app.post("/create-user", tags=["CRUD User"])
 async def create_users(name, password, rol):
     with Session() as session:
@@ -178,10 +178,12 @@ async def get_product(product_id):
         # Devolver todos los datos excepto la imagen binaria directamente
         return product
 
-@app.post("/create-product/", tags=["CRUD Productos"])
-async def create_product(category, product, brand):
+@app.post("/create-product", tags=["CRUD Productos"])
+async def create_product(category: str = Form(), product: str = Form(), brand: str = Form(), image: UploadFile = File(None)):
+    if image:
+        image = await convert_image_to_binary(image)
     with Session() as session:
-        create_product_db(session, category, product, brand)
+        create_product_db(session, category, product, brand, image)
         return {"detail": "Producto creado exitosamente"}
 
 

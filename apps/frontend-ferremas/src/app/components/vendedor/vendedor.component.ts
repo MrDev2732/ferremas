@@ -20,7 +20,7 @@ export class VendedorComponent implements OnInit {
     id: '',
     name: '',
     brand: '',
-    image: null,
+    image: '',
     price: [{
       date: new Date().toISOString(),
       price: 0
@@ -35,11 +35,14 @@ export class VendedorComponent implements OnInit {
 
   newProduct: Product = { ...this.initialProductState };
 
+  selectedFile: File | null = null;
+
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     this.loadProducts();
   }
+
 
   loadProducts(): void {
     this.productService.getProducts().subscribe(products => {
@@ -57,36 +60,32 @@ export class VendedorComponent implements OnInit {
     })
   }
 
-  saveProduct(): void {
-    if (this.selectedProduct) {
-      if (this.selectedProduct.id) {
-        this.productService.updateProduct(this.selectedProduct.id, this.selectedProduct).subscribe(() => {
-          this.loadProducts();
-          this.selectedProduct = null;
-        });
-      } else {
-        this.productService.createProduct(this.selectedProduct).subscribe(() => {
-          this.loadProducts();
-          this.selectedProduct = null;
-        });
-      }
-    }
-  }
+
 
   createProduct(): void {
-    // Verifica que los campos obligatorios no estén vacíos y que el precio tenga al menos un elemento con un precio definido
-    if (this.newProduct.name && this.newProduct.brand && this.newProduct.category) {
-      this.productService.createProduct(this.newProduct).subscribe({
+    if (this.newProduct.name && this.newProduct.brand && this.newProduct.category && this.selectedFile) {
+      const formData = new FormData();
+      formData.append('category', this.newProduct.category);
+      formData.append('product', this.newProduct.name);
+      formData.append('brand', this.newProduct.brand);
+      formData.append('image', this.selectedFile);
+
+      this.productService.createProduct(formData).subscribe({
         next: () => {
-          this.loadProducts(); // Recarga la lista de productos
-          this.newProduct = { ...this.initialProductState }; // Restablece el formulario a su estado inicial
+          this.loadProducts();
+          this.newProduct = { ...this.initialProductState };
+          this.selectedFile = null;
         },
         error: (error) => {
           console.error('Error al crear el producto:', error);
         }
       });
     } else {
-      console.error('Los campos name, brand, price y category son obligatorios');
+      console.error('Todos los campos y la imagen son obligatorios');
     }
+  }
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
   }
 }

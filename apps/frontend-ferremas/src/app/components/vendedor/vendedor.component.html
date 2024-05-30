@@ -3,10 +3,23 @@
     <h1 style="text-align: center; padding-top: 50px;">Agregar nuevo producto</h1>
     <div class="container">  
         <input type="text" name="productName" id="productName" placeholder="Nombre del producto" class="input-agregar" [(ngModel)]="newProduct.name" required>
-        <input type="text" name="category" id="category" placeholder="Categoría" class="input-agregar" [(ngModel)]="newProduct.category" required>
+
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="categoria" style="max-width: 70%; margin: auto; margin-bottom: 10px;" id="categoria" [(ngModel)]="newProduct.category" required>
+            <option value="" disabled selected>Selecciona Categoria</option>
+            <option value="Herramientas Manuales">Herramientas Manuales</option>
+            <option value="Herramientas Eléctricas">Herramientas Eléctricas</option>
+            <option value="Acabados">Acabados</option>
+            <option value="Materiales Básicos">Materiales Básicos</option>
+            <option value="Equipos de Seguridad">Equipos de Seguridad</option>
+            <option value="Accesorios Varios">Accesorios Varios</option>
+          </select>
+
         <input type="text" name="brand" id="brand" placeholder="Marca" class="input-agregar" [(ngModel)]="newProduct.brand" required>
+        <div class="input-group" style="width: 70%; display: flex; margin: auto;">
+            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="productImage" accept="image/*" (change)="onFileSelected($event)" required>
+        </div>
     </div>
-    <button class="btn btn-success agregar" (click)="createProduct()" [disabled]="!newProduct.name || !newProduct.category || !newProduct.brand || !newProduct.price">Agregar</button>
+    <button class="btn btn-success agregar" (click)="createProduct()" [disabled]="!newProduct.name || !newProduct.category || !newProduct.brand || newProduct.price[0].price">Agregar</button>
 </div>
 
 <div class="vendedor">
@@ -39,4 +52,3 @@
       </table>
   </div>
 
-  
