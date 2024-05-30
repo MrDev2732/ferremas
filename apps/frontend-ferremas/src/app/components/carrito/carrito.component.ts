@@ -32,6 +32,11 @@ export class CarritoComponent {
     }, 0);
   }
 
+  removeFromCart(productId: string) {
+    this.carritoService.removeFromCart(productId);
+    this.cart = this.carritoService.getCart();
+  }
+
   makePayment() {
     this.carritoService.createPayment(this.total).subscribe((response: any) => {
       window.location.href = response.approval_url;
@@ -39,5 +44,4 @@ export class CarritoComponent {
       console.error('Error creating the payment: ', error);
     });
   }
-
 }
