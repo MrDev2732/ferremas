@@ -7,7 +7,7 @@
       <p class="card-text">Marca: {{ product.brand }}</p>
       <p class="card-text">Stock: {{ product.stock }}</p>
       <p class="card-text">Precio: {{ product.price[0].price * valorDolar | currency:'CLP':'symbol':'1.0-0' }}</p>
-      <button class="btn btn-success">Agregar</button>
+      <button (click)="addToCart(product)" class="btn btn-success">Agregar al carrito</button>
     </div>
   </div>
 </div>
