@@ -179,7 +179,7 @@ async def update_product(product_id: str, name=None, stock= int ,category=None, 
 
 
 @app.post("/create-payment")
-async def create_payment():
+async def create_payment(total: float):
     payment = paypalrestsdk.Payment({
         "intent": "sale",
         "payer": {
@@ -187,10 +187,10 @@ async def create_payment():
         },
         "transactions": [{
             "amount": {
-                "total": "30.11",
+                "total": str(total),  # Ahora el total es dinámico
                 "currency": "USD"
             },
-            "description": "This is the payment transaction description."
+            "description": "Descripción de la transacción de pago."
         }],
         "redirect_urls": {
             "return_url": "http://localhost:4200/carrito",
@@ -199,14 +199,14 @@ async def create_payment():
     })
 
     if payment.create():
-        print("Payment created successfully")
+        print("Pago creado exitosamente")
         for link in payment.links:
             if link.rel == "approval_url":
-                # Capture the url to redirect the user to
+                # Captura la URL para redirigir al usuario
                 approval_url = str(link.href)
                 return {"approval_url": approval_url}
     else:
-        return {"error": "An error occurred while creating the payment"}
+        return {"error": "Ocurrió un error al crear el pago"}
 
 
 @app.get("/get-category", tags=["Categorias"])
