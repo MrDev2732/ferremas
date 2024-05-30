@@ -62,6 +62,7 @@ export class AdminComponent implements OnInit {
       next: (response) => {
         console.log('Usuario actualizado:', response.detail);
         // Aquí puedes agregar lógica adicional, como actualizar la lista de usuarios sin recargar la página.
+        window.location.reload();
       },
       error: (error) => {
         console.error('Error al actualizar el usuario:', error);
