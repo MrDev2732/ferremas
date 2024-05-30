@@ -3,7 +3,6 @@ import { ProductService } from '../../../services/product-list.service'; // Impo
 import { Product } from '../../interfaces/product'; // Importa la interfaz Product
 import { CarritoService } from '../../../services/carrito.service'
 
-
 @Component({
   selector: 'app-tienda',
   templateUrl: './tienda.component.html',
@@ -13,6 +12,7 @@ import { CarritoService } from '../../../services/carrito.service'
 export class TiendaComponent implements OnInit {
   products: Product[] = [];
   valorDolar: number = 0;
+  private readonly DOLAR_KEY = 'valorDolar';
 
   constructor(private productService: ProductService, private carritoService: CarritoService) {}
 
@@ -24,9 +24,15 @@ export class TiendaComponent implements OnInit {
       }));
     });
 
-    this.productService.getDolar().subscribe((data: number) => {
-      this.valorDolar = data;
-    });
+    const cachedDolar = localStorage.getItem(this.DOLAR_KEY);
+    if (cachedDolar) {
+      this.valorDolar = parseFloat(cachedDolar);
+    } else {
+      this.productService.getDolar().subscribe((data: number) => {
+        this.valorDolar = data;
+        localStorage.setItem(this.DOLAR_KEY, data.toString());
+      });
+    }
   }
 
   addToCart(product: Product) {
@@ -35,5 +41,4 @@ export class TiendaComponent implements OnInit {
       alert('No se puede agregar mas de este producto, stock insuficiente.');
     }
   }
-
 }
