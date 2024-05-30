@@ -11,6 +11,7 @@ import { Product } from '../app/interfaces/product';
 
 export class ProductService {
   private apiUrl = 'http://localhost:8000';
+  private apiUrlDolar = 'http://localhost:8000/get-dolar';
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +21,10 @@ export class ProductService {
 
   getProduct(id: string): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/get-product/${id}`);
+  }
+
+  getDolar(): Observable<any> {
+    return this.http.get<any>(this.apiUrlDolar);
   }
 
   createProduct(formData: FormData): Observable<{message: string}> {
