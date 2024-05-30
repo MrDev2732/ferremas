@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CarritoService {
-  private apiUrl = 'http://localhost:8000/api'; // Asegúrate de que la URL coincida con la de tu servidor backend
+  private apiUrl = 'http://localhost:8000'; // Asegúrate de que la URL coincida con tu servidor backend
 
   constructor(private http: HttpClient) { }
 
-  createPayment() {
-    return this.http.post('http://localhost:8000/create-payment', {});
-  }
+  createPayment(total: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create-payment?total=${total}`, {});  }
 }
