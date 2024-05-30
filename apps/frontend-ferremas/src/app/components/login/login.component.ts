@@ -46,7 +46,7 @@ export class LoginComponent {
             this.router.navigate(['/vendedor']);
             break;
           case 'BODEGUERO':
-            this.router.navigate(['bodega']);
+            this.router.navigate(['/bodega']);
             break;
           // Agrega casos para otros roles si es necesario
           default:
