@@ -5,8 +5,9 @@
     <input type="password" name="password" id="password" placeholder="Password" class="input-agregar" [(ngModel)]="newUser.password" required>
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="rol" style="max-width: 70%; margin: auto;" id="rol" [(ngModel)]="newUser.rol" required>
       <option value="" disabled selected>Selecciona Rol</option>
-      <option value="Vendedor">Vendedor</option>
-      <option value="Bodeguero">Bodeguero</option>
+      <option value="VENDEDOR">VENDEDOR</option>
+      <option value="BODEGUERO">BOGUERO</option>
+      <option value="ADMIN">ADMIN</option>
     </select>
   </div>
   <button class="btn btn-success" (click)="createUser()" style="margin-top: 10px;" [disabled]="!newUser.name || !newUser.password || !newUser.rol">Agregar</button>
@@ -29,10 +30,10 @@
           <td>{{ user.id }}</td>
           <td><input [(ngModel)]="user.name" type="text" *ngIf="editingUserId === user.id; else viewName"></td>
           <td><input [(ngModel)]="user.password" type="password" *ngIf="editingUserId === user.id; else viewPassword"></td>
-          <td><select [(ngModel)]="user.rol" type="text" *ngIf="editingUserId === user.id; else viewRol">
-            <option value="Vendedor">VENDEDOR</option>
-            <option value="Bodeguero">BOGUERO</option>
-            <option value="Bodeguero">ADMIN</option>
+          <td><select [(ngModel)]="user.rol" type="text" *ngIf="editingUserId === user.id; else viewRol" required>
+            <option value="VENDEDOR">VENDEDOR</option>
+            <option value="BODEGUERO">BOGUERO</option>
+            <option value="ADMIN">ADMIN</option>
           </select></td>
           <td>
             <button class="btn btn-warning btn-sm" (click)="editingUserId = user.id" *ngIf="editingUserId !== user.id">Editar</button>
