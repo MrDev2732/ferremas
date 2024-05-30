@@ -1,19 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CarritoService } from '../../../services/carrito.service';
 import { CommonModule } from '@angular/common';
-// import { PaymentService } from '../../../services/payment.service';
+import { Product } from '../../interfaces/product'
 
 @Component({
-  selector: 'propilot-carrito',
+  selector: 'app-carrito',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.scss']
 })
+
 export class CarritoComponent {
   total: number = 500;
+  cart: Product[] = [];
 
-  constructor(private carritoService: CarritoService) {}
+  constructor(private carritoService: CarritoService) {
+    this.cart = this.carritoService.getCart();
+  }
 
   makePayment() {
     this.carritoService.createPayment(this.total).subscribe((response: any) => {
@@ -22,6 +26,4 @@ export class CarritoComponent {
       console.error('Error creating the payment: ', error);
     });
   }
-
-
 }
