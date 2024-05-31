@@ -1,10 +1,12 @@
 # 📑 Índice
 
-1. [🔗 Cómo Conectar al Repositorio](#-cómo-conectar-al-repositorio)
-   - [🔑 Iniciar git](#primero-iniciar-git)
+1. [📦 Instalar Poetry](#-instalar-poetry)
+2. [📦 Instalar con NPM](#-instalar-con-npm)
+3. [🔗 Cómo Conectar al Repositorio](#-cómo-conectar-al-repositorio)
+   - [🔑 Iniciar git](#primero,-iniciar-git)
    - [📥 Clonar el repositorio](#luego-desde-el-cmd-pegar-el-siguiente-código)
    - [🌱 Crear una Nueva Rama en Git](#-crear-una-nueva-rama-en-git)
-2. [🌟 Cómo Iniciar un Proyecto](#-cómo-iniciar-un-proyecto-)
+4. [🌟 Cómo Iniciar un Proyecto](#-cómo-iniciar-un-proyecto-)
    - [🏗️ Genera un Monorepo](#-genera-un-monorepo)
    - [👁️ Genera un Nuevo Proyecto (Frontend)](#-genera-un-nuevo-proyecto-frontend)
    - [🚀 Genera un Nuevo Proyecto (Backend)](#-genera-un-nuevo-proyecto-backend)
@@ -12,13 +14,25 @@
    - [👓 Genera una nueva vista en un Frontend](#-genera-una-nueva-vista-en-un-frontend)
    - [🛠️ Generar un nuevo servicio](#️generar-un-nuevo-servicio)
    - [🛡️ Generar nuevo guard](#generar-nuevo-guard)
-3. [🏃‍♂️ Cómo Correr los Servidores](#-cómo-correr-los-servidores)
+5. [🏃‍♂️ Cómo Correr los Servidores](#-cómo-correr-los-servidores)
    - [🖥️ Backend](#️-backend)
    - [🌍 Frontend](#-frontend)
-4. [📦 Cómo Instalar Dependencias](#-cómo-instalar-dependencias)
+6. [📦 Cómo Instalar Dependencias](#-cómo-instalar-dependencias)
    - [📜 Usando `poetry`](#-si-vas-a-utilizar-poetry)
    - [📦 Usando `npx`](#-si-vas-a-utilizar-npx)
-5. [📝 Notas Adicionales](#-notas-adicionales)
+7. [📝 Notas Adicionales](#-notas-adicionales)
+
+# 📦 Instalar Poetry
+Para manejar las dependencias y entornos virtuales de Python de manera eficiente, puedes instalar Poetry utilizando el siguiente comando:
+```sh
+pip install poetry
+```
+
+# 📦 Instalar con NPM
+Para instalar las dependencias necesarias para tu proyecto utilizando NPM, puedes ejecutar el siguiente comando en tu terminal:
+```sh
+npm install
+```
 
 # 🔗 Cómo Conectar al Repositorio
 ### 🔑 Primero, iniciar git
